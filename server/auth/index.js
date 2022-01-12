@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { models: {User }} = require('../db')
 module.exports = router
+const SECRET_KEY = process.env.JWT
 
 router.post('/login', async (req, res, next) => {
   try {
@@ -24,6 +25,7 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
+//this route will try and verify our token, and get the user by the token (if the token is valid)
 router.get('/me', async (req, res, next) => {
   try {
     res.send(await User.findByToken(req.headers.authorization))
