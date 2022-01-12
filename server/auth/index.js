@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const { models: {User }} = require('../db')
 module.exports = router
-// const SECRET_KEY = process.env.JWT
 
 router.post('/login', async (req, res, next) => {
   try {
+    const { username, password } = req.body
     res.send({ token: await User.authenticate(req.body)}); 
   } catch (err) {
     next(err)
