@@ -1,8 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-module.exports = Book;
-
 const Book = db.define("book", {
   title: {
     type: Sequelize.STRING,
@@ -29,9 +27,9 @@ const Book = db.define("book", {
     },
   },
   genres: {
-    type: Sequelize.ARRAY,
+    type: Sequelize.ARRAY(Sequelize.STRING),
   },
-  bookFormat: {
+  bookformat: {
     type: Sequelize.STRING,
   },
   pages: {
@@ -43,7 +41,7 @@ const Book = db.define("book", {
   publisher: {
     type: Sequelize.STRING,
   },
-  coverImg: {
+  coverimg: {
     type: Sequelize.STRING,
     allowNull: false,
   },
@@ -51,4 +49,14 @@ const Book = db.define("book", {
     type: Sequelize.DECIMAL,
     defaultValue: 5.0,
   },
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
 });
+
+module.exports = Book;
