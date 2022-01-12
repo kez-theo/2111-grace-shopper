@@ -23,29 +23,14 @@ got("https://bookshop.org/lists/juicy-thrillers")
       ),
     ];
 
-    let imageSource = bookList.forEach((book) => {
-      book.querySelector("img").currentSrc;
-
-      let title = bookList.foreEach;
-
-      writeStreamTitle.write(`${title}, ${author} \n`);
+    bookList.forEach((book) => {
+      const imageUrl = book.querySelector("img").currentSrc;
+      const title = book.querySelector("h1").innerText;
+      const author = book.querySelector("h3").innerText;
+      const price = book.getElementsByClassName("font-sans-bold");
+      writeStream.write(`${title}, ${author} \n`);
     });
-    //grab imageUrl
-    nodeList = [...dom.window.document.querySelectorAll("img")];
-    nodeList.forEach((node, i) => {
-      const imageUrl = node.attributes.src.value.toString();
 
-      writeStreamUrl.write(`${imageUrl} \n`);
-    });
-    // grab description
-    nodeList = [...dom.window.document.querySelectorAll("h2 ~ p:not(:empty)")];
-    nodeList
-      .filter((p) => !p.innerHTML.includes("<a"))
-      .forEach((node, i) => {
-        const description = node.innerHTML;
-
-        writeStreamDescription.write(`${description} \n`);
-      });
     console.log("done writing file");
   })
   .catch((err) => {
