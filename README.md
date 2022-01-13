@@ -16,8 +16,6 @@ Now that you've got the code, follow these steps to get acclimated:
 
 Sync and seed your database by running `npm run seed`.
 
-Seed the books table by running 'npm run bookSeed'
-
 Running `npm run start:dev` will make great things happen!
 
 - start:dev will both start your server and build your client side files using webpack
