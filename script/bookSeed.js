@@ -32,7 +32,7 @@ let csvStream = fastcsv
     });
 
     const query =
-      "INSERT INTO books (title, series, author, description, language, isbn, genres, bookFormat, pages, publisher, coverImg, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
+      "INSERT INTO books (title, series, author, description, language, isbn, genres, bookformat, pages, publisher, coverimg, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
 
     pool.connect((err, client, done) => {
       if (err) throw err;
