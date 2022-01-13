@@ -46,8 +46,8 @@ const Book = db.define("book", {
     allowNull: false,
   },
   price: {
-    type: Sequelize.DECIMAL,
-    defaultValue: 5.0,
+    type: Sequelize.INTEGER,
+    defaultValue: 500,
   },
   createdAt: {
     type: Sequelize.DATE,

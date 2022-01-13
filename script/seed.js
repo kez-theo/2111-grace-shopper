@@ -27,8 +27,6 @@ async function seed() {
       murphy: users[1],
     },
   };
-
-  //we are seeding books from a csv file
 }
 
 /*

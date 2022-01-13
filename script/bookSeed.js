@@ -2,7 +2,12 @@ const fs = require("fs");
 const pkg = require("pg");
 const { Pool } = pkg;
 const fastcsv = require("fast-csv");
-// const bookCSV = require("./book_data_selection.csv");
+const {
+  db,
+  models: { Book },
+} = require("../server/db");
+
+db.sync({ force: true });
 
 let stream = fs.createReadStream(
   "/Users/chinahoffman/src/Fullstack/2111-grace-shopper/script/book_data_selection.csv"
@@ -22,9 +27,9 @@ let csvStream = fastcsv
     // create a new connection to the database
     const pool = new Pool({
       host: "localhost",
-      user: "chinahoffman",
+      user: process.env.USER,
       database: "book_shopper",
-      password: "postgres",
+      password: process.env.PASSWORD,
       port: 5432,
     });
 
