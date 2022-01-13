@@ -17,9 +17,7 @@ async function seed() {
   console.log("db synced!");
 
   //creating Books
-  let stream = fs.createReadStream(
-    "/Users/chinahoffman/src/Fullstack/2111-grace-shopper/script/book_data_selection.csv"
-  );
+  let stream = fs.createReadStream("./script/book_data_selection.csv");
   let csvData = [];
   let csvStream = fastcsv
     .parse()
