@@ -18,7 +18,7 @@ async function seed() {
 
   //creating Books
   let stream = fs.createReadStream(
-    "/Users/chinahoffman/src/Fullstack/2111-grace-shopper/script/book_data_selection.csv"
+    "./script/book_data_selection.csv"
   );
   let csvData = [];
   let csvStream = fastcsv
@@ -65,7 +65,7 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: "cody", password: "123" }),
+    User.create({ username: "timmy", password: "123" }),
     User.create({ username: "murphy", password: "123" }),
   ]);
 
