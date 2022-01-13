@@ -16,11 +16,9 @@ let csvData = [];
 let csvStream = fastcsv
   .parse()
   .on("data", function (data) {
-    console.log("first step");
     csvData.push(data);
   })
   .on("end", function () {
-    console.log("second step");
     // remove the first line: header
     csvData.shift();
 
@@ -40,7 +38,6 @@ let csvStream = fastcsv
       if (err) throw err;
 
       try {
-        console.log("last step");
         csvData.forEach((row) => {
           client.query(query, row, (err, res) => {
             if (err) {
