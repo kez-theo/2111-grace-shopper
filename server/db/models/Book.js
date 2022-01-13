@@ -29,7 +29,7 @@ const Book = db.define("book", {
   genres: {
     type: Sequelize.ARRAY(Sequelize.STRING),
   },
-  bookformat: {
+  bookFormat: {
     type: Sequelize.STRING,
   },
   pages: {
@@ -41,7 +41,7 @@ const Book = db.define("book", {
   publisher: {
     type: Sequelize.STRING,
   },
-  coverimg: {
+  coverImg: {
     type: Sequelize.STRING,
     allowNull: false,
   },

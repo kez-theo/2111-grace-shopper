@@ -16,11 +16,9 @@ let csvData = [];
 let csvStream = fastcsv
   .parse()
   .on("data", function (data) {
-    console.log("first step");
     csvData.push(data);
   })
   .on("end", function () {
-    console.log("second step");
     // remove the first line: header
     csvData.shift();
 
@@ -34,13 +32,12 @@ let csvStream = fastcsv
     });
 
     const query =
-      "INSERT INTO books (title, series, author, description, language, isbn, genres, bookformat, pages, publisher, coverimg, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
+      "INSERT INTO books (title, series, author, description, language, isbn, genres, bookFormat, pages, publisher, coverImg, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
 
     pool.connect((err, client, done) => {
       if (err) throw err;
 
       try {
-        console.log("last step");
         csvData.forEach((row) => {
           client.query(query, row, (err, res) => {
             if (err) {
