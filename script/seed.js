@@ -1,29 +1,82 @@
-'use strict'
-
-const {db, models: {User} } = require('../server/db')
+"use strict";
+const fs = require("fs");
+const pkg = require("pg");
+const { Pool } = pkg;
+const fastcsv = require("fast-csv");
+const {
+  db,
+  models: { Book, User },
+} = require("../server/db");
 
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
 async function seed() {
-  await db.sync({ force: true }) // clears db and matches models to tables
-  console.log('db synced!')
+  await db.sync({ force: true }); // clears db and matches models to tables
+  console.log("db synced!");
+
+  //creating Books
+  let stream = fs.createReadStream(
+    "/Users/chinahoffman/src/Fullstack/2111-grace-shopper/script/book_data_selection.csv"
+  );
+  let csvData = [];
+  let csvStream = fastcsv
+    .parse()
+    .on("data", function (data) {
+      csvData.push(data);
+    })
+    .on("end", function () {
+      // remove the first line: header
+      csvData.shift();
+
+      // create a new connection to the database
+      const pool = new Pool({
+        host: "localhost",
+        user: process.env.USER,
+        database: "book_shopper",
+        password: process.env.PASSWORD,
+        port: 5432,
+      });
+
+      const query =
+        "INSERT INTO books (title, series, author, description, language, isbn, genres, bookformat, pages, publisher, coverimg, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
+
+      pool.connect((err, client, done) => {
+        if (err) throw err;
+
+        try {
+          csvData.forEach((row) => {
+            client.query(query, row, (err, res) => {
+              if (err) {
+                console.log(err.stack);
+              } else {
+                console.log("inserted " + res.rowCount + " row:", row);
+              }
+            });
+          });
+        } finally {
+          done();
+        }
+      });
+    });
+
+  stream.pipe(csvStream);
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
+    User.create({ username: "cody", password: "123" }),
+    User.create({ username: "murphy", password: "123" }),
+  ]);
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+  console.log(`seeded ${users.length} users`);
+  console.log(`seeded successfully`);
   return {
     users: {
       cody: users[0],
-      murphy: users[1]
-    }
-  }
+      murphy: users[1],
+    },
+  };
 }
 
 /*
@@ -32,16 +85,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...')
+  console.log("seeding...");
   try {
-    await seed()
+    await seed();
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
+    console.error(err);
+    process.exitCode = 1;
   } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log("closing db connection");
+    await db.close();
+    console.log("db connection closed");
   }
 }
 
@@ -51,8 +104,8 @@ async function runSeed() {
   any errors that might occur inside of `seed`.
 */
 if (module === require.main) {
-  runSeed()
+  runSeed();
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
+module.exports = seed;
