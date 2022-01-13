@@ -16,7 +16,7 @@ Now that you've got the code, follow these steps to get acclimated:
 
 Sync and seed your database by running `npm run seed`.
 
-Seed the books table by running 'npm run bookSeed'
+Seed the books table by running `npm run bookSeed`.
 
 Running `npm run start:dev` will make great things happen!
 
