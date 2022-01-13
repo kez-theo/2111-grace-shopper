@@ -7,19 +7,19 @@ const axios = require('axios');
 const SALT_ROUNDS = 5;
 
 const User = db.define('user', {
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   userType: {
     type: Sequelize.ENUM('Admin', 'User'),
     defaultValue: 'User', 
-    allowNull: false
-
+    allowNull: true
   },
   username: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,
-    validate: {
-      unique: true
-    }
   },
   firstName: {
     type: Sequelize.STRING,
@@ -32,9 +32,9 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     allowNull: true,
+    unique: true,
     validate: {
-      isEmail: true,
-      unique: true
+      isEmail: true
     }
   },
   //CC, and address may all be confidential information and we may need to store it in some encrypted way. 

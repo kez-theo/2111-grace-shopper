@@ -32,16 +32,17 @@ router.get('/:id', async(res, req, next) => {
   }
 })
 
+//** Post Route exists in the auth folder */
 //posts a new user
 //Make note to create a user you only need to input a unique username
-router.post('/', async(req, res, next) => {
-  try {
-    const newUser = await User.create(req.body);
-    res.json(newUser);
-  } catch (err) {
-    next (err)
-  }
-})
+// router.post('/', async(req, res, next) => {
+//   try {
+//     const newUser = await User.create(req.body);
+//     res.json(newUser);
+//   } catch (err) {
+//     next (err)
+//   }
+// })
 
 router.put('/:id', async(req, res, next) => {
   try{
