@@ -1,5 +1,8 @@
 const router = require('express').Router()
-const { models: { Cart }} = require('../db')
-module.exports = router
+const { models: { Cart, User }} = require('../db')
 
-router.get('/', async (req, res, next) => {})
+//NEED: User model and Book model to complete
+
+
+
+module.exports = router;
