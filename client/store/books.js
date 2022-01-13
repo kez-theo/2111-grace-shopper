@@ -15,6 +15,7 @@ export const fetchBooks = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get("/api/books");
+      dispatch(setBooks(data));
     } catch (err) {
       console.log(err);
     }
