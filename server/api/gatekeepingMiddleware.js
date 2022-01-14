@@ -11,7 +11,7 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-//checks to see if the user is an admin to access certain routes
+// checks to see if the user is an admin to access certain routes
 const isAdmin = (req, res, next) => {
   if (!req.user.isAdmin) {
     return res.status(403).send("You shall not pass!");
@@ -23,5 +23,5 @@ const isAdmin = (req, res, next) => {
 
 module.exports = {
   requireToken,
-  isAdmin,
+  isAdmin
 };
