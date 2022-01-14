@@ -17,16 +17,11 @@ const Books = () => {
   }, []);
 
   return (
-    <div>
-      {books.slice(0, 20).map((book) => {
+    <div className="book-small">
+      {books.slice(0, 21).map((book) => {
         return (
-          <div key={book.id}>
+          <div className="book-info" key={book.id}>
             <img className="book-cover all-books" src={book.coverimg} />
-            <div>
-              <h2>{book.title}</h2>
-              <h3> by {book.author}</h3>
-            </div>
-            <div>${book.price / 100}</div>
           </div>
         );
       })}
