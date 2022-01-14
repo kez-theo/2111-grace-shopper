@@ -5,6 +5,7 @@ import { Login, Signup } from "./components/AuthForm";
 import { UserDataForm } from "./components/EditAccount";
 import { Cart } from "./components/Cart";
 import Home from "./components/Home";
+import { Stock } from "./components/Stock";
 import { me } from "./store";
 
 /**
@@ -27,6 +28,7 @@ class Routes extends Component {
             <Route path="/homepage" component={Home} />
             <Route path="/edit" component={UserDataForm} />
             <Route path="/cart" component={Cart} />
+            <Route path="/stock" component={ Stock } />
             <Redirect to="/homepage" />
           </Switch>
         ) : (

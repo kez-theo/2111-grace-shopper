@@ -31,6 +31,7 @@ router.post('/signup', async (req, res, next) => {
 //this route will try and verify our token, and get the user by the token (if the token is valid)
 router.get('/me', async (req, res, next) => {
   try {
+    console.log(req.headers)
     res.send(await User.findByToken(req.headers.authorization))
   } catch (ex) {
     next(ex)
