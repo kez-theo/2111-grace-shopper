@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
-import { UserDataForm } from "./components/UserDataForm";
+import UserDataForm  from "./components/UserDataForm";
 import  SingleBook from './components/SingleBook'
 import { Cart } from "./components/Cart";
 import Home from "./components/Home";

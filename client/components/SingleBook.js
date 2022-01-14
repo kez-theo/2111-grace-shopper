@@ -3,13 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleBook } from '../store/singleBook';
 
-// const book = {
-//     id: 2,
-//     title: 'halp',
-//     author: 'person',
-//     description: 'super nice and awesome',
-//     price: 12
-// }
 class SingleBook extends React.Component {
 
     componentDidMount(){
@@ -26,16 +19,17 @@ class SingleBook extends React.Component {
             <div>
                 <h1>{title}</h1>
                 <p>{book.author}</p>
-                <img src = {coverimg} style = {{width: "100px", height: "100px"}} />
-                <p>{book.description}</p>
-                <h4>${book.price}</h4>
+                <img src = {coverimg} style = {{width: "220px", height: "350px"}} />
+                <p> Description: {book.description}</p>
+                <h4>${book.price ? book.price/100 : 5}</h4>
+                <button type = 'button' onClick = { () => console.log('add to cart button')}>Add to Cart</button>
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    book: state.singleBook
+    book: state.singleBookReducer
 })
 
 const mapDispatchToProps = (dispatch) => ({

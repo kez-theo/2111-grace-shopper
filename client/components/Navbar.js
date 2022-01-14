@@ -20,7 +20,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-        </div>
+          {isUserAdmin && 
+          <div>
+            <Link to="/stock">Stock</Link>
+          </div>}
+          </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
@@ -40,6 +44,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    isUserAdmin: !!state.auth.isAdmin
   };
 };
 
