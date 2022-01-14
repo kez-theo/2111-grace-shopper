@@ -9,8 +9,8 @@ const Book = require("./models/Book");
 
 User.hasMany(Cart);
 Cart.belongsTo(User);
-Book.belongsToMany(Cart, { through: Book_Carts });
-Cart.belongsToMany(Book, { through: Book_Carts });
+Book.belongsTo(Cart);
+Cart.hasMany(Book);
 
 module.exports = {
   db,
