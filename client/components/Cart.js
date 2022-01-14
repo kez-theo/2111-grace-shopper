@@ -3,10 +3,16 @@ import {connect} from 'react-redux';
 import {fetchCartThunk} from '../store/cart'
 
 export class Cart extends React.Component{
-
+//   componentDidMount(){
+//     this.props.getCart(this.props.match.params.id);
+// }
     render(){
+      // const cart = this.props.cart
       return(
-        <div>CART PAGE in prog..</div>
+        <div>
+          <h3>CART PAGE in prog..</h3>
+          {/* <h4>Cart ID: {order_ID}</h4> */}
+        </div>
       )
     }
 }
