@@ -16,7 +16,6 @@ const Cart = db.define('cart', {
     //ordering:
     order_ID:{
         type: Sequelize.INTEGER,
-        primaryKey: true,
         allowNull: false,
         autoIncrement: true,
         validate: {
