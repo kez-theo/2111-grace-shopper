@@ -14,14 +14,6 @@ const Cart = db.define('cart', {
     },
 
     //ordering:
-    order_ID:{
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        autoIncrement: true,
-        validate: {
-          notEmpty: true
-        }
-    },
     order_status: {
         type: Sequelize.ENUM('in cart', 'ordered'),
         defaultValue: 'in cart',
@@ -35,7 +27,10 @@ const Cart = db.define('cart', {
       },
 
     //Check out/payment:
-    checkout_price: Sequelize.DECIMAL(10, 2),
+    checkout_price: {
+      type : Sequelize.DECIMAL(10, 2),
+      defaultValue: 0
+    },
     payment_CreditCardNum: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -76,8 +71,8 @@ Cart.prototype.updateQuantity = async function(){
 
 }
 
-//get total price:
-Cart.prototype.getPrice = async function(){
+//get add book price to total:
+Cart.prototype.addCost = async function(){
 
 }
 
