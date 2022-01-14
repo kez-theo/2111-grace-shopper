@@ -20,6 +20,11 @@ form div {
   display: inline-block;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
 .all-books {
   width: 200px;
 }
