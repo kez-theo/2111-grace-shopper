@@ -1,16 +1,22 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
 
 const Navbar = ({handleClick, isLoggedIn, isUserAdmin}) => (
   <div>
-    <h1>FS-App-Template</h1>
     <nav>
+      <h1>
+        <Link className="logo" to="/homepage">
+          Book Shopper
+        </Link>
+      </h1>
+
       {isLoggedIn ? (
         <div>
+          <Link to="/cart">Cart</Link>
+          <Link to="/edit">Profile</Link>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -22,6 +28,7 @@ const Navbar = ({handleClick, isLoggedIn, isUserAdmin}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
+          <Link to="/cart">Cart</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
@@ -29,24 +36,24 @@ const Navbar = ({handleClick, isLoggedIn, isUserAdmin}) => (
     </nav>
     <hr />
   </div>
-)
+);
 
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     isUserAdmin: !!state.auth.isAdmin
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
-      dispatch(logout())
-    }
-  }
-}
+      dispatch(logout());
+    },
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Navbar);
