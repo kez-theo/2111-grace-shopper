@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import { Login, Signup } from './components/AuthForm';
+import { Login, Signup,  } from './components/AuthForm';
+import {UserDataForm} from './components/EditAccount'
 import { Cart } from './components/Cart';
 import Home from './components/Home';
 import {me} from './store'
@@ -9,6 +10,8 @@ import {me} from './store'
 /**
  * COMPONENT
  */
+
+//Note theres is a slight switch if the user is logged in 
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
@@ -23,6 +26,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
+            <Route path="/edit" component = {UserDataForm} />
           </Switch>
         ) : (
           <Switch>
