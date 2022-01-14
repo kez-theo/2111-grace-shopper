@@ -5,7 +5,6 @@ const {
 module.exports = router;
 
 //get all books
-
 router.get("/", async (req, res, next) => {
   try {
     const books = await Book.findAll();
@@ -14,3 +13,13 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
+//route to single book
+router.get('/:bookId', async(req, res, next) => {
+  try {
+    const book = await Book.findByPk(req.params.bookId)
+    res.json(book);
+  } catch (err) {
+    next(err);
+  }
+})

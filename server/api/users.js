@@ -44,6 +44,7 @@ router.get('/:id', async(res, req, next) => {
 //   }
 // })
 
+//Will need to use a token to modify data in the future. Look at file auth/index.
 router.put('/:id', async(req, res, next) => {
   try{
     const user = await User.findByPk(req.params.id);
