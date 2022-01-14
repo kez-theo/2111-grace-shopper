@@ -14,7 +14,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-<<<<<<< HEAD
 //admin book routes
 router.get("/stock", async (req, res, next) => {
   try {
