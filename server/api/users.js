@@ -1,7 +1,18 @@
 const router = require('express').Router()
 const { models: { User }} = require('../db')
-const { requireToken, isAdmin } = require('./gatekeepingMiddleware')
+// const requireToken = require('./gatekeepingMiddleware')
 module.exports = router
+
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.findByToken(token);
+    req.user = user;
+    next()
+  } catch (e) {
+    next(e);
+  }
+};
 
 //the routes are mounted on /users in the index
 router.get('/', requireToken, async (req, res, next) => {
@@ -23,14 +34,14 @@ router.get('/', requireToken, async (req, res, next) => {
 
 //Route to get a specific user based off of id
 //mounted on /users/:id
-router.get('/:id', async(res, req, next) => {
-  try{
-    const singleUser = await User.findByPk(req.params.id);
-    res.json(singleUser);
-  }catch(err) {
-    next(err)
-  }
-})
+// router.get('/:id', async(res, req, next) => {
+//   try{
+//     const singleUser = await User.findByPk(req.params.id);
+//     res.json(singleUser);
+//   }catch(err) {
+//     next(err)
+//   }
+// })
 
 //** Post Route exists in the auth folder */
 //posts a new user
@@ -44,13 +55,12 @@ router.get('/:id', async(res, req, next) => {
 //   }
 // })
 
-//Will need to use a token to modify data in the future. Look at file auth/index.
-router.put('/:id', async(req, res, next) => {
-  try{
-    const user = await User.findByPk(req.params.id);
-    res.json(await user.update(req.body));
-  }catch (err){
-    next(err)
-  }
-})
+// router.put('/:id', async(req, res, next) => {
+//   try{
+//     const user = await User.findByPk(req.params.id);
+//     res.json(await user.update(req.body));
+//   }catch (err){
+//     next(err)
+//   }
+// })
 

@@ -23,7 +23,7 @@ router.get("/stock", async (req, res, next) => {
     next(err);
   }
 });
-=======
+
 //route to single book
 router.get('/:bookId', async(req, res, next) => {
   try {
@@ -33,4 +33,3 @@ router.get('/:bookId', async(req, res, next) => {
     next(err);
   }
 })
->>>>>>> e54ce5bdaf51ec6d07c6076a83cb171ed8bba771
