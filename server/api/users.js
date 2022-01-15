@@ -1,18 +1,6 @@
 const router = require('express').Router()
 const { models: { User }} = require('../db')
-// const requireToken = require('./gatekeepingMiddleware')
 module.exports = router
-
-const requireToken = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization;
-    const user = await User.findByToken(token);
-    req.user = user;
-    next()
-  } catch (e) {
-    next(e);
-  }
-};
 
 //the routes are mounted on /users in the index
 router.get('/', requireToken, async (req, res, next) => {
