@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-const Sequelize = require('sequelize')
-const db = require('../db')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt');
-=======
 const Sequelize = require("sequelize");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
->>>>>>> 628d3f0545b83301123da94819473f4bafa1d644
 
 const SALT_ROUNDS = 5;
 

@@ -8,11 +8,7 @@ const requireToken = async (req, res, next) => {
     const token = req.headers.authorization;
     const user = await User.findByToken(token);
     req.user = user;
-<<<<<<< HEAD
-    next()
-=======
     next();
->>>>>>> 628d3f0545b83301123da94819473f4bafa1d644
   } catch (e) {
     next(e);
   }

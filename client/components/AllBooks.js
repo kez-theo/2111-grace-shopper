@@ -24,17 +24,10 @@ const Books = () => {
     <div className="book-small">
       {books.slice(0, 21).map((book) => {
         return (
-<<<<<<< HEAD
-            <div className="book-info" key={book.id}>
-          <Link to = {`/books/${book.id}`}>
-            <img className="book-cover all-books" src={book.coverimg} />
-          </Link>
-=======
           <div className="book-info" key={book.id}>
             <Link to={`/books/${book.id}`}>
               <img className="book-cover all-books" src={book.coverimg} />
             </Link>
->>>>>>> 628d3f0545b83301123da94819473f4bafa1d644
           </div>
         );
       })}
