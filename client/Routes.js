@@ -6,7 +6,7 @@ import UserDataForm  from "./components/UserDataForm";
 import  SingleBook from './components/SingleBook'
 import { Cart } from "./components/Cart";
 import Home from "./components/Home";
-import { Stock } from "./components/Stock";
+import Stock from "./components/Stock";
 import { me } from "./store";
 
 /**
@@ -32,7 +32,6 @@ class Routes extends Component {
             {isUserAdmin && 
               <Route exact path="/stock" component={Stock}/>
             }
-            <Route path="/stock" component={ Stock } />
             <Route exact path = "/books/:bookId" component = {SingleBook} />
             <Route path="/edit" component = {UserDataForm} />
             <Redirect to="/homepage" />
@@ -59,6 +58,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    isUserAdmin: !!state.auth.isAdmin
   };
 };
 

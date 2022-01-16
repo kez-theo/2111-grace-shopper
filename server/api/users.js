@@ -3,7 +3,7 @@ const { models: { User }} = require('../db')
 module.exports = router
 
 //the routes are mounted on /users in the index
-router.get('/', requireToken, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     //if we managed to make it PAST require token, we can guarantee that we have a user!
     //isAdmin lets us check to see if that user is an Admin

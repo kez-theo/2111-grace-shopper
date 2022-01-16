@@ -21,7 +21,6 @@ const Books = () => {
     <div className="book-small">
       {books.slice(0, 21).map((book) => {
         return (
-          
             <div className="book-info" key={book.id}>
           <Link to = {`/books/${book.id}`}>
             <img className="book-cover all-books" src={book.coverimg} />
