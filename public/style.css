@@ -43,3 +43,19 @@ nav {
   width: 10vw;
   margin-bottom: 1vh;
 }
+
+.user-table table,
+th,
+td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: lavender;
+}

@@ -1,14 +1,20 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux'
-import {createLogger} from 'redux-logger'
-import thunkMiddleware from 'redux-thunk'
-import singleBookReducer from './singleBook'
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
+import thunkMiddleware from "redux-thunk";
+import singleBookReducer from "./singleBook";
 import booksReducer from "./books";
-import {composeWithDevTools} from 'redux-devtools-extension'
-import auth from './auth'
+import { composeWithDevTools } from "redux-devtools-extension";
+import auth from "./auth";
+import usersReducer from "./users";
 
 //add reducers here! Don't forget to import!
 
-const reducer = combineReducers({ auth, booksReducer, singleBookReducer });
+const reducer = combineReducers({
+  auth,
+  booksReducer,
+  singleBookReducer,
+  usersReducer,
+});
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
