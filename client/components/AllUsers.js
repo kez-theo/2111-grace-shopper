@@ -17,14 +17,20 @@ const AllUsers = () => {
 
   return (
     <table>
-      <tbody>
+      <tbody className="user-table headers">
         <tr>
           <th>Username</th>
+          <th>Name</th>
+          <th>email</th>
         </tr>
         {users.map((user) => {
           return (
-            <tr key={user.id}>
+            <tr className="user-table rows" key={user.id}>
               <td>{user.username}</td>
+              <td>
+                {user.firstName} {user.lastName}
+              </td>
+              <td>{user.email}</td>
               {/* add an edit button to each user, need to go into single user view to delete */}
             </tr>
           );
