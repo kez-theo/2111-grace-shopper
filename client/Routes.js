@@ -2,12 +2,13 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
-import UserDataForm  from "./components/UserDataForm";
-import  SingleBook from './components/SingleBook'
+import UserDataForm from "./components/UserDataForm";
+import SingleBook from "./components/SingleBook";
 import { Cart } from "./components/Cart";
 import Home from "./components/Home";
 import Stock from "./components/Stock";
 import { me } from "./store";
+import AllUsers from "./components/AllUsers";
 
 /**
  * COMPONENT
@@ -29,17 +30,23 @@ class Routes extends Component {
             <Route path="/homepage" component={Home} />
             <Route path="/edit" component={UserDataForm} />
             <Route path="/cart" component={Cart} />
+<<<<<<< HEAD
             {isUserAdmin && 
               <Route exact path="/stock" component={Stock}/>
             }
             <Route exact path = "/books/:bookId" component = {SingleBook} />
             <Route path="/edit" component = {UserDataForm} />
+=======
+            <Route exact path="/books/:bookId" component={SingleBook} />
+            <Route path="/edit" component={UserDataForm} />
+            <Route path="/users" component={AllUsers} />
+>>>>>>> 628d3f0545b83301123da94819473f4bafa1d644
             <Redirect to="/homepage" />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route exact path = "/books/:bookId" component = {SingleBook} />
+            <Route path="/homepage" component={Home} />
+            <Route exact path="/books/:bookId" component={SingleBook} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/cart" component={Cart} />
