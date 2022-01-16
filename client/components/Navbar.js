@@ -20,10 +20,12 @@ const Navbar = ({ handleClick, isLoggedIn, isUserAdmin }) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          {isUserAdmin && 
-          <div>
-            <Link to="/stock">Stock</Link>
-          </div>}
+          {isUserAdmin && (
+            <div>
+              <Link to="/stock">Stock</Link>
+              <Link to="/users">Users</Link>
+            </div>
+          )}
         </div>
       ) : (
         <div>
@@ -44,7 +46,7 @@ const Navbar = ({ handleClick, isLoggedIn, isUserAdmin }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
-    isUserAdmin: !!state.auth.isAdmin
+    isUserAdmin: !!state.auth.isAdmin,
   };
 };
 
