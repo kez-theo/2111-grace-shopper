@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "../store/users";
@@ -11,6 +11,8 @@ const AllUsers = () => {
     };
   });
 
+  const [hoveredRow, setHoveredRow] = useState(null);
+
   useEffect(() => {
     dispatch(fetchUsers());
   }, []);
@@ -22,16 +24,34 @@ const AllUsers = () => {
           <th>Username</th>
           <th>Name</th>
           <th>email</th>
+          <th>Edit</th>
         </tr>
         {users.map((user) => {
           return (
-            <tr className="user-table rows" key={user.id}>
+            <tr
+              className="user-table rows"
+              key={user.id}
+              style={{
+                backgroundColor: user.id === hoveredRow ? "#efefef" : "white",
+              }}
+            >
               <td>{user.username}</td>
               <td>
                 {user.firstName} {user.lastName}
               </td>
               <td>{user.email}</td>
-              {/* add an edit button to each user, need to go into single user view to delete */}
+              <td>
+                <button
+                  onMouseEnter={(e) => {
+                    setHoveredRow(user.id);
+                  }}
+                  onMouseLeave={(e) => {
+                    setHoveredRow(null);
+                  }}
+                >
+                  Edit
+                </button>
+              </td>
             </tr>
           );
         })}
