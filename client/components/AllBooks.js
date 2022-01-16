@@ -5,15 +5,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchBooks } from "../store/books";
 
 const Books = () => {
+  //gives access to dispatch thunks directly
   const dispatch = useDispatch();
+  //gives access to redux state
   const { books } = useSelector((state) => {
     return {
       books: state.booksReducer,
     };
   });
 
+  //where you preform side effects, including data fetching, manually changing the DOM, using history (also available as a hook). Basically componentDidMount, componentDidUpdate and componentWillUnmount combined.
   useEffect(() => {
     dispatch(fetchBooks());
+    //this empty bracket determines that whatever is in the useEffect body will be called once, making this a replacement for componentDidMount.
   }, []);
 
   return (
