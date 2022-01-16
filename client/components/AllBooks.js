@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBooks } from "../store/books";
-//import Link from 'react-router-dom'
 
 const Books = () => {
   const dispatch = useDispatch();
@@ -21,11 +20,10 @@ const Books = () => {
     <div className="book-small">
       {books.slice(0, 21).map((book) => {
         return (
-          
-            <div className="book-info" key={book.id}>
-          <Link to = {`/books/${book.id}`}>
-            <img className="book-cover all-books" src={book.coverimg} />
-          </Link>
+          <div className="book-info" key={book.id}>
+            <Link to={`/books/${book.id}`}>
+              <img className="book-cover all-books" src={book.coverimg} />
+            </Link>
           </div>
         );
       })}
