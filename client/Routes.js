@@ -2,10 +2,10 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
-import UserDataForm from "./components/UserDataForm";
+import UserDataForm from "./components/AddressInfo";
 import SingleBook from "./components/SingleBook";
-import { LocalCart } from "./components/LocalCart";
-import { UserCart } from "./components/LocalCart";
+// import { LocalCart } from "./components/LocalCart";
+// import { UserCart } from "./components/LocalCart";
 import Home from "./components/Home";
 import Stock from "./components/Stock";
 import StockItem from "./components/StockItem";
@@ -32,10 +32,9 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/homepage" component={Home} />
-            <Route path="/edit" component={UserDataForm} />
-            <Route path="/cart/:username" component={UserCart} />
+            {/* <Route path="/cart/:username" component={UserCart} /> */}
             <Route exact path="/books/:bookId" component={SingleBook} />
-            <Route path="/edit" component={UserDataForm} />
+            {/* <Route path="/edit" component={UserDataForm} /> */}
             <Route exact path="/stock" component={Stock} />
             <Route path="/stock/:stockId" component={StockItem} />
             <Route path="/users" component={AllUsers} />
@@ -50,7 +49,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/checkout/address" component={Checkout} />
-            <Route path="/cart" component={LocalCart} />
+            {/* <Route path="/cart" component={LocalCart} /> */}
             <Route path="/checkout/shipping" component={Shipping} />
           </Switch>
         )}

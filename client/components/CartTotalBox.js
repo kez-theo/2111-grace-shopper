@@ -1,5 +1,4 @@
 import React from "react";
-import Cart from "../../server/db/models/Cart";
 
 const CartTotalBox = () => {
   return (
