@@ -14,7 +14,8 @@ export class Cart extends React.Component {
   // }
 
   componentDidMount() {
-    this.props.loadCart()
+    const cartId = this.props.match.params.cartId
+    this.props.loadCart(cartId)
   }
 
   // removeItem(BookName) {
