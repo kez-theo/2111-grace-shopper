@@ -1,5 +1,4 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const Book = require("./book.js");
+const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Cart = db.define("cart", {
@@ -29,18 +28,14 @@ const Cart = db.define("cart", {
   },
   order_date: {
     type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW,
   },
   //Check out/payment:
   checkout_price: {
     type: Sequelize.INTEGER,
-    // get: function() {
-    //   let pennies = this.getDataValue('checkout_price')
-    //   return pennies / 100
   },
   payment_CreditCardNum: {
     //just last 4 digits
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     validate: {
       len: [4],
     },
@@ -60,6 +55,9 @@ const Cart = db.define("cart", {
   //     isDate: true
   //   },
   // },
+  sales_tax_at_checkout: Sequelize.INTEGER,
+  shipping_method: Sequelize.STRING,
+  shipping_price: Sequelize.INTEGER,
   billingAddress: Sequelize.STRING,
   shippingAddress: Sequelize.STRING,
 });
