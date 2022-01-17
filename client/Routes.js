@@ -4,7 +4,8 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import UserDataForm from "./components/UserDataForm";
 import SingleBook from "./components/SingleBook";
-import { Cart } from "./components/Cart";
+import { LocalCart } from "./components/LocalCart";
+import { UserCart } from "./components/LocalCart";
 import Home from "./components/Home";
 import Stock from "./components/Stock";
 import StockItem from "./components/StockItem";
@@ -31,9 +32,9 @@ class Routes extends Component {
           <Switch>
             <Route path="/homepage" component={Home} />
             <Route path="/edit" component={UserDataForm} />
-            <Route path="/cart" component={Cart} />
-            <Route exact path = "/books/:bookId" component = {SingleBook} />
-            <Route path="/edit" component = {UserDataForm} />
+            <Route path="/cart/:username" component={UserCart} />
+            <Route exact path="/books/:bookId" component={SingleBook} />
+            <Route path="/edit" component={UserDataForm} />
             <Route exact path="/stock" component={Stock} />
             <Route path="/stock/:stockId" component={StockItem} />
             <Route path="/users" component={AllUsers} />
@@ -46,8 +47,8 @@ class Routes extends Component {
             <Route exact path="/books/:bookId" component={SingleBook} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/cart" component={Cart} />
             <Route path="/checkout/address" component={Checkout} />
+            <Route path="/cart" component={LocalCart} />
           </Switch>
         )}
       </div>
@@ -63,7 +64,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
-    isUserAdmin: !!state.auth.isAdmin
+    isUserAdmin: !!state.auth.isAdmin,
   };
 };
 
