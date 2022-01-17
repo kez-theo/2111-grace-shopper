@@ -11,10 +11,10 @@ const Cart = db.define('cart', {
         min: 0
       }
   },
-  cart_contents:{
-    // figurre out an array within array
-    type: Sequelize.ARRAY(Sequelize.ARRAY)
- },
+//   cart_contents:{
+//     // figurre out an array within array
+//     type: Sequelize.ARRAY(Sequelize.ARRAY)
+//  },
   //ordering:
   order_name: {
     type: Sequelize.STRING
@@ -33,9 +33,9 @@ const Cart = db.define('cart', {
   //Check out/payment:
   checkout_price: {
     type: Sequelize.INTEGER,
-    get: function() {
-      let pennies = this.getDataValue('checkout_price')
-      return pennies / 100
+    // get: function() {
+    //   let pennies = this.getDataValue('checkout_price')
+    //   return pennies / 100
   },
   payment_CreditCardNum: {
     //just last 4 digits

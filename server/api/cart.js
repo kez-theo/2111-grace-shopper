@@ -9,7 +9,7 @@ router.get('/:username', async (req, res, next) => {
         userId: req.params.username,
         order_status: 'in cart'
       },
-      include: {model: Book, as: BookInOrder}
+      include: {model: Book}
     })
     if (currentCart) {
       res.json(currentCart)
@@ -22,24 +22,23 @@ router.get('/:username', async (req, res, next) => {
 })
 
 // add item to cart:
-router.put(':/username/add', async (req, res, next) => {
+router.post(':/userId/add', async (req, res, next) => {
   try {
     const [currentOrder] = await Cart.findOrCreate({
       where: {
-        order_status: 'in cart'
-        username: req.body.username
+        order_status: 'in cart',
+        userId: req.body.userId
       },
       include: {
-        model: Book,
-        as: BookInOrder
+        model: Book
       },
-      const currentBook = await Book.findByPk(req.body.bookId),
-      let updatedOrder = await Cart.findOne({
+    const currentBook = await Book.findByPk(req.body.bookId),
+    let updatedOrder = await Cart.findOne({
         where: {
-          username req.body.username,
+          userId: req.body.userId,
           order_status: 'in cart'
         },
-        include: {model: Book, as: BookInOrder}
+        include: {model: Book}
       })
         res.json(updatedOrder)
   }} catch (error) {

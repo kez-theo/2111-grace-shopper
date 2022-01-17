@@ -5,6 +5,7 @@ const LOAD_CART = 'LOAD_CART'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CART_QUANTITY = 'CART_QUANTITY'
 const EMPTY_CART = 'EMPTY_CART'
+//^^ switch to just local 
 
 //ACTION CREATORS
 const gotCart = cart => ({type: LOAD_CART, cart})
