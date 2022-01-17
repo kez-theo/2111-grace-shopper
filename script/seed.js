@@ -7,6 +7,7 @@ const {
   db,
   models: { Book, User },
 } = require("../server/db");
+const Cart = require("../server/db/models/Cart");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -36,7 +37,7 @@ async function seed() {
         password: process.env.PASSWORD,
         port: 5432,
       });
-
+      //sql query inserts data
       const query =
         "INSERT INTO books (title, series, author, description, language, isbn, genres, bookformat, pages, publisher, coverimg, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
 
@@ -63,20 +64,39 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: "timmy", password: "123", isAdmin: false }),
-    User.create({ username: "murphy", password: "123", isAdmin: false }),
-    User.create({ username: "cody", password: "123", isAdmin: true })
+    User.create({ username: "timmy", password: "123" }),
+    User.create({ username: "murphy", password: "123" }),
+    User.create({
+      username: "cody",
+      password: "123",
+      userType: "Admin",
+      isAdmin: true,
+      firstName: "cody",
+      lastName: "the-turtle",
+      email: "cody@emailplace.org",
+    }),
+    User.create({ username: "china", password: "123" }),
+    User.create({ username: "amanda", password: "123" }),
+    User.create({ username: "gal", password: "123" }),
+    User.create({ username: "keranie", password: "123" }),
   ]);
+
+  //creating Carts
+
+  //carts associated with users
+  const cart1 = await Cart.create();
+  const cart2 = await Cart.create();
+  const cart3 = await Cart.create();
+  const cart4 = await Cart.create();
+
+  //guest carts
+  const cart5 = await Cart.create();
+  const cart6 = await Cart.create();
+  const cart7 = await Cart.create();
+  const cart8 = await Cart.create();
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
-  // return {
-  //   users: {
-  //     timmy: users[0],
-  //     murphy: users[1],
-  //     cody: users[2]
-  //   },
-  // };
 }
 
 /*
