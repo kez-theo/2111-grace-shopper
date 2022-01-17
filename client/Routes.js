@@ -8,6 +8,7 @@ import { Cart } from "./components/Cart";
 import Home from "./components/Home";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
+import Checkout from "./components/Checkout";
 
 /**
  * COMPONENT
@@ -32,6 +33,7 @@ class Routes extends Component {
             <Route exact path="/books/:bookId" component={SingleBook} />
             <Route path="/edit" component={UserDataForm} />
             <Route path="/users" component={AllUsers} />
+            <Route path="/checkout/address" component={Checkout} />
             <Redirect to="/homepage" />
           </Switch>
         ) : (
@@ -41,6 +43,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/cart" component={Cart} />
+            <Route path="/checkout/address" component={Checkout} />
           </Switch>
         )}
       </div>
