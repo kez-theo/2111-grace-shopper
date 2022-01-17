@@ -26,14 +26,14 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn, isUserAdmin } = this.props;
+    const { isLoggedIn } = this.props;
 
     return (
       <div>
         {isLoggedIn ? (
           <Switch>
             <Route path="/homepage" component={Home} />
-            <Route path="/homepage" component={Cart} />
+            <Route path="/cart" component={Cart} />
             {/* <Route path="/cart/:username" component={UserCart} /> */}
             <Route exact path="/books/:bookId" component={SingleBook} />
             {/* <Route path="/edit" component={UserDataForm} /> */}

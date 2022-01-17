@@ -4,6 +4,20 @@ const {
   models: { Cart, User, Book },
 } = require("../db");
 
+// get empty cart:
+// >>>>>>> ATTEMPT 2 -> cart/cartId
+// >>>>>>> This is reliant on each cart being unique (which I believe they are!) & therefore
+// >>>>>>> two different users can't have the same cart or access it
+router.get("/", async (req, res, next) => {
+  try {
+    res.send(await User.findByToken(req.headers.authorization));
+  } catch (err) {
+    console.log('>>>>>>>You are not Authorized!')
+    next(err);
+  }
+});
+
+
 // find user cart:
 // >>>>>>> ATTEMPT 1 -> cart/cartId
 // >>>>>>> too many layers of authentication so couldn't review the data!
