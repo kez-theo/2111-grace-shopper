@@ -5,30 +5,37 @@ const {
 } = require("../db");
 
 // find user cart:
-router.get("/:id", requireToken, async (req, res, next) => {
+// >>>>>>> ATTEMPT 1 -> cart/cartId
+router.get("/:cartId", requireToken, async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization)
     if (user) {
-      const currentCart = await Cart.findOrCreate({
+      const currentCart = await Cart.find({
         where: {
-          id: req.params.id,
+          id: req.params.cartId,
           userId: user.id,
           order_status: "in cart",
         },
         include: { model: Book },
       });
-      res.json(currentCart);
+      if (currentCart) {
+        res.json(currentCart);
+      } else {
+        console.log('no cart - get shopping!')
+        throw new Error();
+      }
     } else {
+      console.log('Not your books!!!')
       throw new Error();
     }
   } catch (err) {
+    console.log('>>>>>>>You are not Authorized!')
     next(err);
   }
 });
 
-
-// >>>>>ATTEMPT 1
 // // find user cart:
+// >>>>>ATTEMPT 2
 // router.get("/:userId/:cartId", requireToken, async (req, res, next) => {
 //   try {
 //     const currentCart = await Cart.findOne({
