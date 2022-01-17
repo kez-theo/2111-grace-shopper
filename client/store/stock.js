@@ -29,15 +29,13 @@ export const deleteStock = (stockItem) => ({
 export const fetchStock = () => {
   return async (dispatch) => {
     const token = window.localStorage.getItem(TOKEN)
-    try {
-      const { data: stock } = await axios.get("/api/books", {
+    if (token) {
+      const { data: stock } = await axios.get("/api/stock", {
         headers: {
           authorization: token,
         },
       });
       dispatch(getStock(stock));
-    } catch (err) {
-      console.log(err);
     }
   };
 };
@@ -47,7 +45,7 @@ export const updateStock = (stockItem, history) => {
     try {
       const { data: updatedItem } = await axios.put(`/api/books/${book.id}`, stockItem);
       dispatch(editStock(updatedItem));
-      history.push(`/books`)
+      history.push(`/stock`)
     } catch (err) {
       console.log(err);
     }
@@ -61,7 +59,7 @@ export const removeStock = (id, history) => {
       dispatch(deleteStock(stockItem));
       const { data: stock } = await axios.get('/api/books')
       dispatch(getStock(stock))
-      history.push(`/books`)
+      history.push(`/stock`)
     } catch (err) {
       console.log(err);
     }

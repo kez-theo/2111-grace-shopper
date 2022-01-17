@@ -1,6 +1,5 @@
 //note: look at todos and todo in PairExercise.TodoList.V2 for a good example of how to pass an id prop to each single book
 import React, { useEffect } from "react";
-// import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchStock, updateStock, removeStock } from "../store/stock";
 
@@ -15,7 +14,7 @@ const Stock = () => {
   useEffect(() => {
     dispatch(fetchStock());
   }, []);
-  console.log(books)
+
   return (
     <div>
       <table>
