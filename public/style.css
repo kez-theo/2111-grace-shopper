@@ -48,7 +48,11 @@ nav {
 th,
 td {
   border: 1px solid black;
-  padding: 5px;
+  padding: 8px;
+}
+
+tr:nth-child(even) { 
+  background: rgb(228, 226, 226); 
 }
 
 table {
