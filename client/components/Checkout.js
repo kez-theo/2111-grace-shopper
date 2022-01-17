@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import UserDataForm from "./UserDataForm";
+import Shipping from "./Shipping";
+
 //this thunk should include the active carts total price
 import fetchActiveCart from "../store/cart";
 //import all thunks needed here
@@ -21,7 +23,19 @@ const Checkout = () => {
 
   return (
     <div>
-      <UserDataForm />
+      <div>
+        <span>1. ADDRESS</span>
+        <span>2. DELIVERY</span>
+        <span>3. PAYMENT</span>
+        <span>4. CONFIRM</span>
+      </div>
+      <div>
+        {/* if cart doesn't have an address set, show the User Data Form, if it does, show delivery, if it has a shipping address, show payment, if it has payment info, show confirm, if it's switched to ordered, show thank you page */}
+        <UserDataForm />
+        <Shipping />
+        <Payment />
+        <Confirm />
+      </div>
     </div>
   );
 };
