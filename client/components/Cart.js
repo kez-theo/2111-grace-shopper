@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { fetchStock, updateStock, removeStock } from "../store/cart";
+import { loadCart } from "../store/cart";
 
 export class Cart extends React.Component {
   // constructor() {
@@ -14,10 +14,7 @@ export class Cart extends React.Component {
   // }
 
   componentDidMount() {
-    const BookObj = JSON.parse(localStorage.getItem('cart'))
-    this.setState({
-      contents: BookObj
-    })
+    this.props.loadCart()
   }
 
   // removeItem(BookName) {
@@ -29,12 +26,18 @@ export class Cart extends React.Component {
   // }
 
   render() {
-    const cart = this.state.items || []
     // const cartArr = Object.values(cart)
     return (
-      <div>
-        <h3>${username}'s Cart</h3>
-      </div>
+      <>
+        <div>
+          <h3>${username}'s Cart</h3>
+        </div>
+        <div>
+          <h3>Book 1</h3>
+          <h3>Book 2</h3>
+          <h3>Book 3</h3>
+        </div>
+      </>
     )
   }
 }

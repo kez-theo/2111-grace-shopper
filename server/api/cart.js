@@ -1,19 +1,22 @@
 const router = require("express").Router();
+const { requireToken, isAdmin } = require("./gatekeepingMiddleware");
 const {
   models: { Cart, User, Book },
 } = require("../db");
 
 // find user cart:
-router.get("/", async (req, res, next) => {
+router.get("/:id", requireToken, async (req, res, next) => {
   try {
-    const currentCart = await Cart.findOne({
-      where: {
-        userId: req.params.username,
-        order_status: "in cart",
-      },
-      include: { model: Book },
-    });
-    if (currentCart) {
+    const user = await User.findByToken(req.headers.authorization)
+    if (user) {
+      const currentCart = await Cart.findOrCreate({
+        where: {
+          id: req.params.id,
+          userId: user.id,
+          order_status: "in cart",
+        },
+        include: { model: Book },
+      });
       res.json(currentCart);
     } else {
       throw new Error();
@@ -22,6 +25,28 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
+
+// >>>>>ATTEMPT 1
+// // find user cart:
+// router.get("/:userId/:cartId", requireToken, async (req, res, next) => {
+//   try {
+//     const currentCart = await Cart.findOne({
+//       where: {
+//         userId: req.params.id,
+//         order_status: "in cart",
+//       },
+//       include: { model: Book },
+//     });
+//     if (currentCart) {
+//       res.json(currentCart);
+//     } else {
+//       throw new Error();
+//     }
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 // add item to cart:
 // router.post(':/userId/add', async (req, res, next) => {
