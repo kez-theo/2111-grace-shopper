@@ -9,7 +9,7 @@ const Book = require("./models/Book");
 
 User.hasMany(Cart);
 Cart.belongsTo(User);
-Book.belongsToMany(Cart);
+Book.belongsToMany(Cart, { through: 'cart_book'});
 Cart.hasMany(Book);
 
 module.exports = {

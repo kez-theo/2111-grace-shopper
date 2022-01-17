@@ -51,7 +51,7 @@ export const loadCart = userId => async dispatch => {
   }
 }
 
-export const removeItem = idObj => async dispatch => {
+export const removeItemThunk = idObj => async dispatch => {
   try {
     const {status} = await axios.put(`/api/cart/remove`, idObj)
 
@@ -81,6 +81,11 @@ export const editQuantity = updateObj => async dispatch => {
   } catch (err) {
     console.error(err)
   }
+}
+
+//Initial state:
+const defaultCartState = {
+  products: []
 }
 
 //REDUCER

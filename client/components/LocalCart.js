@@ -1,43 +1,53 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {removeGuestCartItem} from '../store/localcart'
 
 export class LocalCart extends React.Component{
   constructor() {
     super()
-    this.state = {
-      contents: {}
-    }
-
-    this.removeItem = this.removeItem.bind(this)
-    this.updateItem = this.updateItem.bind(this)
   }
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //     contents: {}
+  //   }
 
-  componentDidMount() {
-    const BookObj = JSON.parse(localStorage.getItem('cart'))
-    this.setState({
-      contents: BookObj
-    })
-  }
+  //   this.removeItem = this.removeItem.bind(this)
+  //   this.updateItem = this.updateItem.bind(this)
+  // }
 
-  removeItem(BookName) {
-    removeGuestCartItem(BookName)
-    const BookObj = JSON.parse(localStorage.getItem('cart'))
-    this.setState({
-      contents: BookObj
-    })
-  }
+  // componentDidMount() {
+  //   const BookObj = JSON.parse(localStorage.getItem('cart'))
+  //   this.setState({
+  //     contents: BookObj
+  //   })
+  // }
+
+  // removeItem(bookId) {
+  //   removeGuestCartItem(bookId)
+  //   const BookObj = JSON.parse(localStorage.getItem('cart'))
+  //   this.setState({
+  //     contents: BookObj
+  //   })
+  // }
 
   render() {
-    const cart = this.state.items || []
-    const cartArr = Object.values(cart)
+    // const cart = this.state.items || []
+    // const cartArr = Object.values(cart)
+    
     return (
       <div>
         <h3>Guest's Cart</h3>
-        <Cart
-          cart={cartArr}
-          handleRemove={this.removeItem}
-        />
+        <div>
+              {cart
+                ? cart.map(cartItem => (
+                    <Cart
+                      key={}
+                      cartItem={}
+                      loadCart={this.props.loadCart}
+                    />
+                  ))
+                : `Your cart is currently empty`}
+            </div>
       </div>
     )
   }
