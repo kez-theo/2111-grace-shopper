@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import UserDataForm from "./UserDataForm";
 import Shipping from "./Shipping";
@@ -20,6 +19,8 @@ const Checkout = () => {
       dispatch(fetchActiveCart());
     }, [cart]);
   });
+
+  const CurrentCart = { id: 1, item_quantity: 5 };
 
   return (
     <div>

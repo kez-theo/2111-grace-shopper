@@ -12,6 +12,7 @@ import StockItem from "./components/StockItem";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
 import Checkout from "./components/Checkout";
+import Shipping from "./components/Shipping";
 
 /**
  * COMPONENT
@@ -39,6 +40,7 @@ class Routes extends Component {
             <Route path="/stock/:stockId" component={StockItem} />
             <Route path="/users" component={AllUsers} />
             <Route path="/checkout/address" component={Checkout} />
+            <Route path="/checkout/shipping" component={Shipping} />
             <Redirect to="/homepage" />
           </Switch>
         ) : (
@@ -49,6 +51,7 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/checkout/address" component={Checkout} />
             <Route path="/cart" component={LocalCart} />
+            <Route path="/checkout/shipping" component={Shipping} />
           </Switch>
         )}
       </div>
