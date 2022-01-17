@@ -7,6 +7,7 @@ import SingleBook from "./components/SingleBook";
 import { Cart } from "./components/Cart";
 import Home from "./components/Home";
 import Stock from "./components/Stock";
+import StockItem from "./components/StockItem";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
 
@@ -33,6 +34,7 @@ class Routes extends Component {
             <Route exact path = "/books/:bookId" component = {SingleBook} />
             <Route path="/edit" component = {UserDataForm} />
             <Route path="/stock" component={Stock} />
+            <Route path="/stock/:stockId" component={StockItem} />
             <Route path="/users" component={AllUsers} />
             <Redirect to="/homepage" />
           </Switch>
