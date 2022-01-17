@@ -1,27 +1,27 @@
-// const router = require("express").Router();
-// const {
-//   models: { Cart, User, Book },
-// } = require("../db");
+const router = require("express").Router();
+const {
+  models: { Cart, User, Book },
+} = require("../db");
 
-// // find user cart:
-// router.get("/:username", async (req, res, next) => {
-//   try {
-//     const currentCart = await Cart.findOne({
-//       where: {
-//         userId: req.params.username,
-//         order_status: "in cart",
-//       },
-//       include: { model: Book },
-//     });
-//     if (currentCart) {
-//       res.json(currentCart);
-//     } else {
-//       throw new Error();
-//     }
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+// find user cart:
+router.get("/", async (req, res, next) => {
+  try {
+    const currentCart = await Cart.findOne({
+      where: {
+        userId: req.params.username,
+        order_status: "in cart",
+      },
+      include: { model: Book },
+    });
+    if (currentCart) {
+      res.json(currentCart);
+    } else {
+      throw new Error();
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 
 // add item to cart:
 // router.post(':/userId/add', async (req, res, next) => {
