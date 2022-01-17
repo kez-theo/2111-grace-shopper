@@ -95,16 +95,7 @@ export default function cartReducer(state = defaultCartState, action) {
           product => product.id !== action.productId
         )
       }
-    case CART_QUANTITY:
-      return {
-        ...state,
-        products: state.products.map(product => {
-          if (product.id === action.productId) {
-            product.productsInOrder.quantity = action.quantity
-          }
-          return product
-        })
-      }
+    
     case EMPTY_CART:
       return defaultCartState
     default:

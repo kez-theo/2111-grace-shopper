@@ -29,7 +29,7 @@ export class LocalCart extends React.Component{
   }
 
   render() {
-    const cart = this.state.products || []
+    const cart = this.state.items || []
     const cartArr = Object.values(cart)
     return (
       <div>
