@@ -78,12 +78,13 @@ async function seed() {
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
-  };
+  // return {
+  //   users: {
+  //     timmy: users[0],
+  //     murphy: users[1],
+  //     cody: users[2]
+  //   },
+  // };
 }
 
 /*

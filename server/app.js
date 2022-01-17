@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
+// const { requireToken, isAdmin } = require('./api/gatekeepingMiddleware')
 const app = express()
 module.exports = app
 
@@ -13,6 +14,8 @@ app.use(morgan('dev'))
 
 // body parsing middleware
 app.use(express.json())
+
+// app.use(requireToken, isAdmin)
 
 // auth and api routes
 app.use('/auth', require('./auth'))
