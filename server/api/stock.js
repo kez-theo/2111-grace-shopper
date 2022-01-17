@@ -6,7 +6,7 @@ module.exports = router;
 //admin book routes
 
 //get all books
-router.get("/stock", async (req, res, next) => {
+router.get("/stock", requireToken, isAdmin, async (req, res, next) => {
   try {
     const books = await Book.findAll();
     res.json(books);
@@ -16,7 +16,7 @@ router.get("/stock", async (req, res, next) => {
 });
 
 //route to single book
-router.get('/stock/:bookId', async(req, res, next) => {
+router.get('/stock/:bookId', requireToken, isAdmin, async(req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.bookId)
     res.json(book);
