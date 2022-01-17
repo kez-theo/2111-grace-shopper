@@ -12,7 +12,7 @@ const StockItem = () => {
 
     useEffect(() => {
         dispatch(fetchStockItem(book.id))
-    }, {})
+    }, [])
 
     return (
         <div>

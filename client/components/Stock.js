@@ -34,7 +34,9 @@ const Stock = () => {
                 <td>{book.author}</td>
                 <td>${(book.price/100).toFixed(2)}</td>
                 <td>
-                  <button onClick={() => history.push(`/stock/${book.id}`)}>Edit</button>
+                  <button onClick={() => {
+                    console.log('hello')
+                    history.push(`/stock/${book.id}`)}}>Edit</button>
                   <button onClick={() => removeStock(book.id)}>Delete</button>
                 </td>
               </tr>

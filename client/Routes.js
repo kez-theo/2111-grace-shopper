@@ -33,7 +33,7 @@ class Routes extends Component {
             <Route path="/cart" component={Cart} />
             <Route exact path = "/books/:bookId" component = {SingleBook} />
             <Route path="/edit" component = {UserDataForm} />
-            <Route path="/stock" component={Stock} />
+            <Route exact path="/stock" component={Stock} />
             <Route path="/stock/:stockId" component={StockItem} />
             <Route path="/users" component={AllUsers} />
             <Redirect to="/homepage" />
