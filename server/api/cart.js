@@ -1,46 +1,71 @@
 const router = require('express').Router()
 const { models: { Cart, User, Book }} = require('../db')
 
-//need associations to complete
-
-//helper funcs:
-const getCart = username =>{
-    Cart.findAll({
-        where: {
-            username,
-            order_status: 'in cart'
-        }
+// find user cart:
+router.get('/:username', async (req, res, next) => {
+  try {
+    const currentCart = await Cart.findOne({
+      where: {
+        userId: req.params.username,
+        order_status: 'in cart'
+      },
+      include: {model: Book, as: BookInOrder}
     })
-}
+    if (currentCart) {
+      res.json(currentCart)
+    } else {
+      throw new Error()
+    }
+  } catch (err) {
+    next(err)
+  }
+})
 
-//ROUTES:
-//new cart:
+// add item to cart:
+router.put(':/username/add', async (req, res, next) => {
+  try {
+    const [currentOrder] = await Cart.findOrCreate({
+      where: {
+        order_status: 'in cart'
+        username: req.body.username
+      },
+      include: {
+        model: Book,
+        as: BookInOrder
+      },
+      const currentBook = await Book.findByPk(req.body.bookId),
+      let updatedOrder = await Cart.findOne({
+        where: {
+          username req.body.username,
+          order_status: 'in cart'
+        },
+        include: {model: Book, as: BookInOrder}
+      })
+        res.json(updatedOrder)
+  }} catch (error) {
+    next(error)
+  }
+})
 
 
-//go to cart OR (if no cart), new Cart:
-router.get('/', async (req, res, next) =>{
-//     try{
-//         const cart = await getCart(req.user.username);
-//         let orderId;
-//         if (!cart.length){
-//             const newCart = await Cart.create({username: req.user.username})
-//             res.status(201).json(newCart)
-//             orderId = newCart.orderId
-//         } else if (cart.length){
-//             orderId = cart[0].dataValues.id
-//         }
-
-// //then, LOAD BOOKS:
-//         // const books = await Cart.findAll({
-//         //     where:{
-//         //         order_ID: order_ID
-//         //     },
-//         //     include: [Book]
-//         // })
-//         // res.json(books)
-//     }catch(err){
-//         next(err)
-//     }
+// remove item from cart
+router.put('/remove', async (req, res, next) => {
+  try {
+    const currentOrder = await Cart.findByPk(req.body.id)
+    if (currentOrder.username !== req.body.username) {
+      res.sendStatus(401)
+    } else {
+      await BookInOrder.destroy({
+        where: {
+          bookId: req.body.bookId,
+          cartId: req.body.cartId
+        }
+      })
+    }
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
 })
 
 
@@ -54,11 +79,6 @@ router.put(':id', async (req, res, next) => {
       next(error)
     }
   })
-
-
-
-
-module.exports = router;
 
 
 module.exports = router;

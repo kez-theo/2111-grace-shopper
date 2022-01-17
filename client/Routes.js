@@ -4,7 +4,8 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import UserDataForm from "./components/UserDataForm";
 import SingleBook from "./components/SingleBook";
-import { Cart } from "./components/Cart";
+import { LocalCart } from "./components/LocalCart";
+import { UserCart } from "./components/LocalCart";
 import Home from "./components/Home";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
@@ -28,7 +29,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/homepage" component={Home} />
             <Route path="/edit" component={UserDataForm} />
-            <Route path="/cart" component={Cart} />
+            <Route path="/cart/:username" component={UserCart} />
             <Route exact path="/books/:bookId" component={SingleBook} />
             <Route path="/edit" component={UserDataForm} />
             <Route path="/users" component={AllUsers} />
@@ -40,7 +41,7 @@ class Routes extends Component {
             <Route exact path="/books/:bookId" component={SingleBook} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/cart" component={Cart} />
+            <Route path="/cart" component={LocalCart} />
           </Switch>
         )}
       </div>
