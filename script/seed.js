@@ -36,7 +36,7 @@ async function seed() {
         password: process.env.PASSWORD,
         port: 5432,
       });
-
+      //sql query inserts data
       const query =
         "INSERT INTO books (title, series, author, description, language, isbn, genres, bookformat, pages, publisher, coverimg, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
 
@@ -65,7 +65,15 @@ async function seed() {
   const users = await Promise.all([
     User.create({ username: "timmy", password: "123" }),
     User.create({ username: "murphy", password: "123" }),
-    User.create({username: "cody", password: '123', userType: 'Admin', isAdmin: true, firstName: 'cody', lastName: 'the-turtle', email: 'cody@emailplace.org'})
+    User.create({
+      username: "cody",
+      password: "123",
+      userType: "Admin",
+      isAdmin: true,
+      firstName: "cody",
+      lastName: "the-turtle",
+      email: "cody@emailplace.org",
+    }),
   ]);
 
   console.log(`seeded ${users.length} users`);
