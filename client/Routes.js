@@ -30,11 +30,14 @@ class Routes extends Component {
             <Route path="/homepage" component={Home} />
             <Route path="/edit" component={UserDataForm} />
             <Route path="/cart" component={Cart} />
-            {isUserAdmin && 
-              <Route exact path="/stock" component={Stock}/>
-            }
             <Route exact path = "/books/:bookId" component = {SingleBook} />
             <Route path="/edit" component = {UserDataForm} />
+            {isUserAdmin &&
+              <>
+                <Route path="/stock" component={Stock} />
+                <Route path="/users" component={AllUsers} />
+              </>
+            }
             <Redirect to="/homepage" />
           </Switch>
         ) : (

@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const TOKEN = "token";
+
 //ACTIONS
 const GET_STOCK = "GET_STOCK";
 const EDIT_STOCK = "EDIT_STOCK";
@@ -26,8 +28,13 @@ export const deleteStock = (stockItem) => ({
 
 export const fetchStock = () => {
   return async (dispatch) => {
+    const token = window.localStorage.getItem(TOKEN)
     try {
-      const { data: stock } = await axios.get("/api/books");
+      const { data: stock } = await axios.get("/api/books", {
+        headers: {
+          authorization: token,
+        },
+      });
       dispatch(getStock(stock));
     } catch (err) {
       console.log(err);
@@ -52,7 +59,7 @@ export const removeStock = (id, history) => {
     try {
       const { data: stockItem } = await axios.delete(`/api/books/${id}`);
       dispatch(deleteStock(stockItem));
-      const { data: stock } = await axios.get('/api/campuses')
+      const { data: stock } = await axios.get('/api/books')
       dispatch(getStock(stock))
       history.push(`/books`)
     } catch (err) {

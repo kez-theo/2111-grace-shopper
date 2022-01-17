@@ -25,25 +25,6 @@ nav {
   justify-content: space-between;
 }
 
-table {
-  border-collapse: collapse;
-  width: 80%;
-}
-
-table.center {
-  margin-left: auto; 
-  margin-right: auto;
-}
-
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) { 
-  background: rgb(228, 226, 226); 
-}
-
 .all-books {
   width: 10vw;
 }
@@ -67,7 +48,11 @@ tr:nth-child(even) {
 th,
 td {
   border: 1px solid black;
-  padding: 5px;
+  padding: 8px;
+}
+
+tr:nth-child(even) { 
+  background: rgb(228, 226, 226); 
 }
 
 table {

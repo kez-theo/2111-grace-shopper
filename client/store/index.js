@@ -15,6 +15,7 @@ const reducer = combineReducers({
   booksReducer,
   singleBookReducer,
   usersReducer,
+  stockReducer
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

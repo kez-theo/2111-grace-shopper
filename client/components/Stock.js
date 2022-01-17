@@ -15,26 +15,28 @@ const Stock = () => {
   useEffect(() => {
     dispatch(fetchStock());
   }, []);
-
+  console.log(books)
   return (
     <div>
-      <table className="center">
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Price</th>
-          <th>Action</th>
-        </tr>
-        {books.slice(0, 21).map((book) => {
-          return (
-            <tr key={book.id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>{book.price}</td>
-              <td>buttons</td>
-            </tr>
-          );
-        })}
+      <table>
+        <tbody>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+          {books.slice(0, 21).map((book) => {
+            return (
+              <tr key={book.id}>
+                <td>{book.title}</td>
+                <td>{book.author}</td>
+                <td>${book.price/100}</td>
+                <td>buttons</td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>  
     </div>
   );

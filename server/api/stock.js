@@ -1,11 +1,12 @@
 const router = require("express").Router();
-const {
-  models: { Book },
-} = require("../db");
+const { models: { Book } } = require("../db");
+const { requireToken, isAdmin } = require("./gatekeepingMiddleware");
 module.exports = router;
 
+//admin book routes
+
 //get all books
-router.get("/", async (req, res, next) => {
+router.get("/stock", async (req, res, next) => {
   try {
     const books = await Book.findAll();
     res.json(books);
@@ -15,7 +16,7 @@ router.get("/", async (req, res, next) => {
 });
 
 //route to single book
-router.get('/:bookId', async(req, res, next) => {
+router.get('/stock/:bookId', async(req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.bookId)
     res.json(book);
