@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const TOKEN = "token";
+
 //ACTIONS
 const LOAD_CART = "LOAD_CART";
 // const REMOVE_ITEM = "REMOVE_ITEM";
@@ -53,7 +55,7 @@ const gotCart = (cart) => ({ type: LOAD_CART, cart });
 // };
 
 // >>>>>>>>> KT Edits
-export const loadCart = (cartId) => async (dispatch) => {
+export const loadCart = (cartId) => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN)
@@ -63,10 +65,11 @@ export const loadCart = (cartId) => async (dispatch) => {
             authorization: token,
           },
         });
+        console.log(cart)
         dispatch(gotCart(cart));
       }
     } catch (err) {
-      next(err)
+      console.log('>>>>>>thunk not working')
     }
   };
 };
@@ -103,7 +106,7 @@ export const loadCart = (cartId) => async (dispatch) => {
 //   }
 // };
 
-const initialState = []
+const initialState = {}
 
 //REDUCER
 export default function cartReducer(state = initialState, action) {

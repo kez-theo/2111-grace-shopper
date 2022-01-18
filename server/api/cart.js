@@ -4,18 +4,31 @@ const {
   models: { Cart, User, Book },
 } = require("../db");
 
-// get empty cart:
-// >>>>>>> ATTEMPT 2 -> cart/cartId
-// >>>>>>> This is reliant on each cart being unique (which I believe they are!) & therefore
-// >>>>>>> two different users can't have the same cart or access it
-router.get("/", async (req, res, next) => {
+router.post('/student/:studentId', async (req, res, next) => {
   try {
-    res.send(await User.findByToken(req.headers.authorization));
+    // let book = await Book.findByPk(req.params.bookId)
+    let student = await Student.findByPk(req.params.studentId)
+    // let cart = await Cart.create(req.body)
+    let test = await Test.create(req.body)
+    // let userCart = await cart.setBook(book)
+    let studentTest = await test.setStudent(student)
+    //res.status(201).send(userCart)
+    res.status(201).send(studentTest)
   } catch (err) {
-    console.log('>>>>>>>You are not Authorized!')
-    next(err);
+    next(err)
   }
-});
+})
+
+
+// get empty cart:
+// router.get("/", async (req, res, next) => {
+//   try {
+//     // check to see if cart ID exists;
+//   } catch (err) {
+//     console.log('>>>>>>>You are not Authorized!')
+//     next(err);
+//   }
+// });
 
 
 // find user cart:

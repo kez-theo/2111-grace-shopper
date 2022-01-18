@@ -3,19 +3,14 @@ import {connect} from 'react-redux';
 import { loadCart } from "../store/cart";
 
 export class Cart extends React.Component {
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     contents: {}
-  //   }
-
-  //   this.removeItem = this.removeItem.bind(this)
-  //   this.updateItem = this.updateItem.bind(this)
-  // }
-
+  constructor (props) {
+    super (props)
+  }
   componentDidMount() {
-    const cartId = this.props.match.params.cartId
-    this.props.loadCart(cartId)
+    console.log(this.state)
+    this.props.loadCart()
+    console.log(this.props)
+    console.log(this.state.cartReducer) 
   }
 
   // removeItem(BookName) {
@@ -27,13 +22,17 @@ export class Cart extends React.Component {
   // }
 
   render() {
-    // const cartArr = Object.values(cart)
     return (
       <>
         <div>
-          <h3>${username}'s Cart</h3>
+          <h3>Cody's Cart</h3>
         </div>
         <div>
+          {/* create mapped books component
+          that has:
+          image,
+          title,
+          price */}
           <h3>Book 1</h3>
           <h3>Book 2</h3>
           <h3>Book 3</h3>
@@ -42,5 +41,13 @@ export class Cart extends React.Component {
     )
   }
 }
-  
-  export default Cart;
+
+const mapState = (state) => ({
+  cart: state.cartReducer
+})
+
+const mapDispatch = (dispatch) => ({
+  loadCart: (cartId) => dispatch(loadCart(cartId)),
+})
+
+export default connect(mapState, mapDispatch)(Cart);
