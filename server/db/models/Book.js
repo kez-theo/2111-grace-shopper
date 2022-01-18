@@ -49,13 +49,9 @@ const Book = db.define("book", {
     type: Sequelize.INTEGER,
     defaultValue: 500,
   },
-  createdAt: {
-    type: Sequelize.DATE,
-    allowNull: true,
-  },
-  updatedAt: {
-    type: Sequelize.DATE,
-    allowNull: true,
+  bought: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
   createdAt: {
     type: Sequelize.DATE,

@@ -19,24 +19,34 @@ class UserDataForm extends React.Component {
     }
 
 //This is to fetch user data to pre-populate the page
-    componentDidMount () {
-        const { id } = this.props.match.params;
-        this.props.fetchUser(id)
-    }
+    // componentDidMount () {
+    //   // console.log(req.headers.authorization)
+    //     const { id } = this.props.match.params;
+    //     this.props.fetchUser(id)
+    // }
 
 //For when you remove this data from the dom
-//this is to pre-populate the form
 // componentWillUnmount() {
     //if this is neccissary go back and create a clear user thunk
 //     this.props.clearUser();
 //   }
 
-//executes code after a component is updated
-// componentDidUpdate(prevProps){
+//Lifecycle hook to prepopulate form with user data
+componentDidUpdate(prevProps){
+  if (prevProps.user.id !== this.props.user.id) {
+    this.setState({
+      firstName: this.props.user.firstName || '',
+      lastName: this.props.user.lastName || '',
+      email: this.props.user.email || '',
+      streetAddress: this.props.user.streetAddress || '',
+      cityAddress: this.props.user.cityAddress || '',
+      zipcode: this.props.user.zipcode || 0,
+      phoneNumber: this.props.user.phoneNumber || ''
+    });
+  }
+}
 
-// }
-
-//this changes state 
+//this changes state to whatever is input into the form
     handleChange(evt) {
         this.setState({
           [evt.target.name]: evt.target.value
@@ -47,20 +57,25 @@ class UserDataForm extends React.Component {
     handleSubmit(evt){
         evt.preventDefault(); 
         this.props.updateUser({ ...this.props.user, ...this.state })
-        this.setState({
-          firstName: '',
-          lastName: '',
-          email: '',
-          streetAddress: '',
-          cityAddress: '',
-          zipcode: 0,
-          phoneNumber: ''
-        })
+        
+        //this should clear the form after you submit
+        // this.setState({
+        //   firstName: '',
+        //   lastName: '',
+        //   email: '',
+        //   streetAddress: '',
+        //   cityAddress: '',
+        //   zipcode: 0,
+        //   phoneNumber: ''
+        // })
     }
 
     render(){
         const { handleSubmit, handleChange } = this;
         const { firstName, lastName, email, streetAddress, cityAddress, zipcode, phoneNumber} = this.state;
+
+        console.log('props', this.props)
+        console.log('state', this.state)
 
         return (
             <div>
@@ -135,8 +150,8 @@ class UserDataForm extends React.Component {
 //     }
 //   }
 
-const mapStateToProps = ({ user }) => ({
-    user
+const mapStateToProps = (state) => ({
+    user: state.singleUserReducer
 })
 
 //This is not actually connected to any thunk, I'll need to go back and change this

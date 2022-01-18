@@ -21,6 +21,7 @@ export const _updateSingleUser = (user) => {
 export const fetchSingleUser = (user) => {
     return async (dispatch) => {
         try{
+
             const {data : user} = await axios.get(`/api/users/${user.userId}`);
             dispatch(setSingleUser(user))
         } catch (err) {
