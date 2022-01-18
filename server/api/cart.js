@@ -1,24 +1,48 @@
-const router = require('express').Router()
-const { models: { Cart, User, Book,}} = require('../db')
+const router = require("express").Router();
+const { requireToken, isAdmin } = require("./gatekeepingMiddleware");
+const {
+  models: { Cart, User, Book },
+} = require("../db");
 
 
+// find user cart:
+router.get("/", requireToken, async (req, res, next) => {
+  try {
+    const currentCart = await Cart.findOne({
+      where: {
+        userId: req.user.id,
+        order_status: "in cart",
+      },
+      include: { model: Book },
+    });
+    if (currentCart) {
+      res.json(currentCart);
+    } else {
+      console.log('no cart - get shopping!')
+      throw new Error();
+    }
+  } catch (err) {
+    console.log('>>>>>>>You are not Authorized!')
+    next(err);
+  }
+});
 
-
-// helper functions
-// const findCart = userId =>
-//   Cart.findAll({
-//     where: {
-//       userId,
-//       order_status: 'in cart'
-//     }
-//   })
-// const findCartItem = (cartId) =>
-//   Book.findAll({
-//     where: {
-//       cartId
-//     }
-//   })
-
+// add item to cart:
+//IF no token: guest cart
+router.post("/", requireToken, async (req, res, next) => {
+  try {
+    const currentOrder = await Cart.findOrCreate({
+      where: {
+        order_status: 'in cart',
+        userId: req.user.id,
+      }})
+      const currBook = await Book.findByPk(req.body.id)
+      currentOrder.setCart(currBook)
+      res.json(currentOrder)
+} catch (error) {
+    next(error)
+  }
+})
 
 
 // Routes
@@ -83,22 +107,7 @@ const { models: { Cart, User, Book,}} = require('../db')
 // //   }
 // // })
 
-// // // add item to cart:
-// // router.put('/add', async (req, res, next) => {
-// //   try {
-// //     const [currentOrder] = await Cart.findOrCreate({
-// //       where: {
-// //         order_status: 'in cart',
-// //         userId: req.body.userId
-// //       },
-// //       include: {
-// //         model: Book,
-// //         as: BooksInOrder
-// //       }),
-// // } catch (error) {
-// //     next(error)
-// //   }
-// // })
+
 
 
 // // // remove item from cart

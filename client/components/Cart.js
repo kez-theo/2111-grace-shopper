@@ -1,43 +1,45 @@
 import React from 'react'
 import { fetchCartThunk, removeItemThunk} from '../store/cart'
-// import { fetchUsers } from '../store/users'
-// import { cartPlusThunk, cartMinusThunk } from '../store/cart'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export class Cart extends React.Component {
-  constructor(props){
-    super(props)
-    this.handleDelete = this.handleDelete.bind(this)
-  }
+  // constructor(){
+  //   super()
+  //   this.handleDelete = this.handleDelete.bind(this)
+  // }
   componentDidMount(){
-    this.props.loadCart(this.props.match.params.cartId)
-}
-async handleDelete (event) {
-  event.preventDefault();
-  const bookId=event.target.value
-  await this.props.deleteItem(bookId)
-}
+    this.props.loadCart()
+  }
+// async handleDelete (event) {
+//   event.preventDefault();
+//   const bookId=event.target.value
+//   await this.props.deleteItem(bookId) }
+
   render() {
-    const cart = this.props.cart || [];
+    const cart = this.props.cart || {};
+    const books = this.props.cart.books || [];
+
     // if (this.props.currentUser.id) {
     //   cart = this.props.cart
     // } else {
-    //   let localCart = localStorage.getItem('CART')
+    //   let localCart = localStorage.getItem()
     //   cart = JSON.parse(localCart)
     // }
     return (
       <div>
-        <h3>My Cart</h3>
-        {(cart.length === 0 ? <span>No items in cart.</span> :
-        cart.map(book =>{
-          <li key={book.id}>
-              Title: {book.title} <br/>
-              Price: {this.props.book.price}<br/>
+        <h3>Shopping Cart</h3>
+        {books.length === 0 ? <span>No items in cart.</span> :
+        books.map(book =>{
+          <div key={book.id}>
+              <h5>Title: {book.title}</h5>
+              <img src={book.coverimg} />
+              <h5>Price: {(book.price/100).toFixed(2)}</h5>
             <button onClick={ () => this.props.deleteItem(this.handleDelete)}>Remove from Cart</button>
-            </li>
+            </div>
         }
             
-        ))}
+        )}
         <Link to="/checkout"><button>checkout</button></Link>
       </div>
     )
@@ -46,14 +48,12 @@ async handleDelete (event) {
 }
 
 const mapState = (state) => ({
-    cart: state.cart,
-    user: state.user
+    cart: state.cartReducer,
 })
 
 const mapDispatch = dispatch => ({
-   loadCart: () => dispatch(fetchCartThunk()),
+  loadCart: (cartId) => dispatch(fetchCartThunk(cartId)),
    deleteItem: (bookId) =>dispatch(removeItemThunk(bookId))
-  //  currentUser: () =>dispatch()
 
 })
 

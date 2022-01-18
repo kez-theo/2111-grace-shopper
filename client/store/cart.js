@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const TOKEN = "token";
+
 //ACTIONS
 const LOAD_CART = "LOAD_CART";
 const UPDATE_CART = "UPDATE_CART";
@@ -14,20 +16,34 @@ const removeItem = (book)=> ({ type: REMOVE_ITEM, book});
 const emptyCart = () => ({ type: EMPTY_CART });
 
 //THUNKS
-export const fetchCartThunk = () => async (dispatch) => {
-  try {
-    const { data, status } = await axios.get(`/api/cart/`);
-    if (data) {
-      dispatch(fetchCart(data));
-    } else if (status === 404) {
-      throw new Error("cart empty");
-    } else {
-      throw new Error("error fetching cart");
+export const fetchCartThunk = () => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN)
+      if (token) {
+        const { data: cart } = await axios.get(`/api/cart`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(fetchCart(cart));
+      }
+    } catch (err) {
+      console.log('>>>>>>thunk not working')
     }
-  } catch (err) {
-    console.error(err);
-  }
+  };
 };
+
+
+// export const fetchCartThunk = () => async (dispatch) => {
+//   try {
+//     const { data, status } = await axios.get(`/api/cart/`);
+//     if (data) {
+//       dispatch(fetchCart(data));
+//     } else if (status === 404) {
+//       throw new Error("cart empty");
+//     } else {
+//       throw new Error("error fetching cart");
 
 
 // funk for adding book to NEW cart
@@ -63,8 +79,10 @@ export const removeItemThunk = (bookId) => async (dispatch) => {
   }
 };
 
+// const initialState = {}
+
 //Initial state:
-const initialState = []
+const initialState = {}
 
 //REDUCER
 export default function cartReducer(state = initialState, action) {
