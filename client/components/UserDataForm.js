@@ -49,7 +49,7 @@ componentDidUpdate(prevProps){
 //this changes state to whatever is input into the form
     handleChange(evt) {
         this.setState({
-          [evt.target.name]: evt.target.value
+          [evt.target.id]: evt.target.value
         });
       }
 
