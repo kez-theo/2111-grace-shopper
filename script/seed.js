@@ -5,9 +5,8 @@ const { Pool } = pkg;
 const fastcsv = require("fast-csv");
 const {
   db,
-  models: { Book, User },
+  models: { Book, User, Cart },
 } = require("../server/db");
-const Cart = require("../server/db/models/Cart");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -30,6 +29,13 @@ async function seed() {
       csvData.shift();
 
       // create a new connection to the database
+      const connectionString = process.env.DATABASE_URL;
+
+      //if connecting to heroku:
+      //const pool = new Pool({
+      //   {connectionString: connectionString}
+      // }) else {}
+
       const pool = new Pool({
         host: "localhost",
         user: process.env.USER,
