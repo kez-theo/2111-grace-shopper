@@ -12,13 +12,8 @@ const Book = require("./models/Book");
 const Book_Cart = db.define("Book_Carts", {}, { timestamps: false });
 User.hasMany(Cart);
 Cart.belongsTo(User);
-<<<<<<< HEAD
-Book.belongsToMany(Cart, { through: 'cart_book'});
-Cart.hasMany(Book);
-=======
 Book.belongsToMany(Cart, { through: "Book_Carts" });
 Cart.belongsToMany(Book, { through: "Book_Carts" });
->>>>>>> origin
 
 module.exports = {
   db,

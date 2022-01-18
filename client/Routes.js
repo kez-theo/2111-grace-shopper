@@ -6,6 +6,7 @@ import UserDataForm from "./components/AddressInfo";
 import SingleBook from "./components/SingleBook";
 // import { LocalCart } from "./components/LocalCart";
 // import { UserCart } from "./components/LocalCart";
+import { Cart} from "./components/Cart";
 import Home from "./components/Home";
 import Stock from "./components/Stock";
 import StockItem from "./components/StockItem";
@@ -32,7 +33,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/homepage" component={Home} />
-            {/* <Route path="/cart/:username" component={UserCart} /> */}
+            <Route path="/cart" component={Cart} />
             <Route exact path="/books/:bookId" component={SingleBook} />
             {/* <Route path="/edit" component={UserDataForm} /> */}
             <Route exact path="/stock" component={Stock} />
@@ -49,7 +50,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/checkout/address" component={Checkout} />
-            {/* <Route path="/cart" component={LocalCart} /> */}
+            <Route path="/cart" component={Cart} />
             <Route path="/checkout/shipping" component={Shipping} />
           </Switch>
         )}

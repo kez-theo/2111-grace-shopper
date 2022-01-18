@@ -2,44 +2,27 @@ import axios from "axios";
 
 //ACTIONS
 const LOAD_CART = "LOAD_CART";
+const ADD_TO_CART = "ADD_TO_CART"
 const REMOVE_ITEM = "REMOVE_ITEM";
-const CART_QUANTITY = "CART_QUANTITY";
+const CART_COUNT_ADD = "CART_COUNT_ADD";
+const CART_COUNT_SUBTRACT = "CART_COUNT_SUBTRACT";
+// EMPTY CART each time user checks out
 const EMPTY_CART = "EMPTY_CART";
-//^^ switch to just local
 
 //ACTION CREATORS
-const gotCart = (cart) => ({ type: LOAD_CART, cart });
-const removeItem = (bookId) => ({ type: REMOVE_ITEM, bookId });
-const cartQuantity = (updates) => ({
-  type: CART_QUANTITY,
-  productId: updates.productId,
-  quantity: updates.quantity,
-});
+const fetchCart = (cart) => ({ type: LOAD_CART, cart });
+const addItem = (newBook) => ({ type: ADD_TO_CART, newBook})
+const removeItem = (deleteBook) => ({ type: REMOVE_ITEM, deletebook });
+const cartPlus = (plus) => ({ type: CART_COUNT_ADD, plus})
+const cartMinus = (minus) => ({ type: CART_COUNT_SUBTRACT, minus})
 const emptyCart = () => ({ type: EMPTY_CART });
 
 //THUNKS
-export const addItemThunk = (idObj) => async (dispatch) => {
+export const fetchCartThunk = () => async (dispatch) => {
   try {
-    const { data, status } = await axios.put("/api/cart/add", idObj);
-    if (data.alert) {
-      alert("THAT'S ALL THE STOCK WE HAVE!");
-    } else if (status === 200) {
-      dispatch(gotCart(data));
-    } else if (status === 401) {
-      throw new Error("Warning: attempt to edit another user's cart");
-    } else {
-      throw new Error("failed to add item");
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const loadCart = (userId) => async (dispatch) => {
-  try {
-    const { data, status } = await axios.get(`/api/cart/${userId}`);
+    const { data, status } = await axios.get(`/api/cart`);
     if (data) {
-      dispatch(gotCart(data));
+      dispatch(fetchCart(data));
     } else if (status === 404) {
       throw new Error("cart empty");
     } else {
@@ -50,12 +33,27 @@ export const loadCart = (userId) => async (dispatch) => {
   }
 };
 
-export const _removeItem = (idObj) => async (dispatch) => {
+export const addItemThunk = (id) => async (dispatch) => {
   try {
-    const { status } = await axios.put(`/api/cart/remove`, idObj);
+    const { data, status } = await axios.post("/api/cart", id);
+    if (status === 200) {
+      dispatch(addItem(data));
+    } else if (status === 401) {
+      throw new Error("Warning: attempt to edit another user's cart");
+    } else {
+      throw new Error("failed to add item");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const removeItemThunk = (id) => async (dispatch) => {
+  try {
+    const { status } = await axios.delete(`/api/cart/${id}`, );
 
     if (status === 200) {
-      dispatch(removeItem(idObj.productId));
+      dispatch(removeItem(id));
     } else if (status === 401) {
       throw new Error("Warning: attempt to edit another user's cart");
     } else {
@@ -66,42 +64,62 @@ export const _removeItem = (idObj) => async (dispatch) => {
   }
 };
 
-export const editQuantity = (updateObj) => async (dispatch) => {
+export const cartPlusThunk = add => async dispatch => {
   try {
-    const { data, status } = await axios.put(`/api/cart/quantity`, updateObj);
-
-    if (status === 200) {
-      dispatch(cartQuantity(data));
-    } else if (status === 401) {
-      throw new Error("Warning: attempt to edit another user's cart");
-    } else {
-      throw new Error("failed to edit item quantity");
-    }
-  } catch (err) {
-    console.error(err);
+    const {data} = await axios.put('/api/cart', add)
+    dispatch(cartPlus(data))
+  } catch (error) {
+    console.error(error)
   }
-};
-
-//Initial state:
-const defaultCartState = {
-  products: []
 }
 
+export const cartMinusThunk = sub => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/cart', sub)
+    dispatch(cartMinus(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const emptyCartThunk =  (cart) => async (dispatch) =>{
+  try {
+  const { data, status } = await axios.delete(`/api/cart`, cart);
+  if (data) {
+    dispatch(emptyCart(data));
+  }
+} catch (err) {
+  console.error(err);
+}
+}
+
+
+//Initial state:
+const initialState = []
+
 //REDUCER
-export default function cartReducer(state = defaultCartState, action) {
+export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_CART:
       return action.cart;
-    case REMOVE_ITEM:
-      return {
-        ...state,
-        products: state.products.filter(
-          (product) => product.id !== action.productId
-        ),
-      };
-
+    case ADD_TO_CART:
+      return [...state, action.addBook]
+    case REMOVE_ITEM:{
+      const newState = state.filter(
+        cartBook => cartBook.bookId !== action.deleteBook
+      )
+      return newState
+    }
+    case CART_COUNT_ADD: {
+      // state.forEach 'add'?
+      return state
+    }
+    case CART_COUNT_SUBTRACT: {
+      // state.forEach 'remove'?
+      return state
+    }
     case EMPTY_CART:
-      return defaultCartState;
+      return initialState;
     default:
       return state;
   }
