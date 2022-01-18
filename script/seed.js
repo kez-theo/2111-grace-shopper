@@ -29,7 +29,7 @@ async function seed() {
       csvData.shift();
 
       // create a new connection to the database
-      const connectionString = process.env.DATABASE_URL;
+      // const connectionString = process.env.DATABASE_URL;
 
       //if connecting to heroku:
       //const pool = new Pool({
