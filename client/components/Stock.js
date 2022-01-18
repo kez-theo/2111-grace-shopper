@@ -27,23 +27,32 @@ const Stock = () => {
             <th>Price</th>
             <th>Action</th>
           </tr>
+          {/* These are 'magic numbers'.
+          What do they mean? If something changes in the future,
+          is this guaranteed to work? */}
           {books.slice(0, 21).map((book) => {
             return (
               <tr key={book.id}>
                 <td>{book.title}</td>
                 <td>{book.author}</td>
-                <td>${(book.price/100).toFixed(2)}</td>
+                {/* nit: This should be a utility method */}
+                <td>${(book.price / 100).toFixed(2)}</td>
                 <td>
-                  <button onClick={() => {
-                    console.log('hello')
-                    history.push(`/stock/${book.id}`)}}>Edit</button>
+                  <button
+                    onClick={() => {
+                      console.log("hello");
+                      history.push(`/stock/${book.id}`);
+                    }}
+                  >
+                    Edit
+                  </button>
                   <button onClick={() => removeStock(book.id)}>Delete</button>
                 </td>
               </tr>
             );
           })}
         </tbody>
-      </table>  
+      </table>
     </div>
   );
 };

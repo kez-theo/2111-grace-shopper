@@ -1,0 +1,9 @@
+lots of commented out code, remove before finishing.
+
+seems pretty bold to use hooks for this project.
+
+files in store are inconsistently name - singleBook, books, users, auth (singleUser?), stock, stockItem (singleStock?)
+
+generally inconsistent naming
+
+do we need to send JWT in axios calls?

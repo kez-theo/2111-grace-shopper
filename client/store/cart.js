@@ -18,16 +18,26 @@ const cartQuantity = (updates) => ({
 const emptyCart = () => ({ type: EMPTY_CART });
 
 //THUNKS
+// This is kinda on the right track.
+// But instead of throwing errors or ALERTING!
+// This thunk should dispatch ACTIONS which trigger some reducer somewhere.
+// If you run out of stock, dispatch an 'OUT OF STOCK' action which
+// can be intercepted by an 'alert' component, for example.
+// You can also dispatch ERROR actions and have a generic 'error message'
+// component.
 export const addItemThunk = (idObj) => async (dispatch) => {
   try {
     const { data, status } = await axios.put("/api/cart/add", idObj);
     if (data.alert) {
+      //lol.
       alert("THAT'S ALL THE STOCK WE HAVE!");
     } else if (status === 200) {
       dispatch(gotCart(data));
     } else if (status === 401) {
       throw new Error("Warning: attempt to edit another user's cart");
     } else {
+      // might be valuable to log the status here?
+      // not sure you need an if clause for every non-200 status.
       throw new Error("failed to add item");
     }
   } catch (error) {

@@ -30,6 +30,8 @@ router.get("/", requireToken, isAdmin, async (req, res, next) => {
 
 //Route to get a specific user based off of id
 //mounted on /users/:id
+// shouldn't this be protected with /requireToken?
+// also, shouldn't we make sure users can't access other users?
 router.get("/:id", async (res, req, next) => {
   try {
     const singleUser = await User.findByPk(req.params.id);
@@ -55,6 +57,8 @@ router.get("/:id", async (res, req, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
+    // show demo of why bad.
+    // includes password!
     res.json(await user.update(req.body));
   } catch (err) {
     next(err);

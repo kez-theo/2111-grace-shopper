@@ -10,17 +10,24 @@ import fetchActiveCart from "../store/cart";
 
 const Checkout = () => {
   const dispatch = useDispatch();
+
+  // if I understand this correctly the selector function
+  // will return an object with a property, `activeCart`
+  // but we are attempting to destructure the value `cart`
+  // from that object.
   const { cart } = useSelector((state) => {
     return {
       //rename state.cart depending on what others call cart and singleUser reducer
       activeCart: state.activeCart,
     };
 
+    // this is unreachable code
     useEffect(() => {
       dispatch(fetchActiveCart());
     }, [cart]);
   });
 
+  // no longer used?
   const CurrentCart = { id: 1, item_quantity: 5, total: 25 };
 
   return (
