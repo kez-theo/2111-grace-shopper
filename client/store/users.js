@@ -34,7 +34,6 @@ export default function usersReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USERS:
       return action.users;
-
     default:
       return state;
   }
