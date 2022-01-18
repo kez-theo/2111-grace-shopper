@@ -4,73 +4,13 @@ const {
   models: { Cart, User, Book },
 } = require("../db");
 
-router.post('/student/:studentId', async (req, res, next) => {
-  try {
-    // let book = await Book.findByPk(req.params.bookId)
-    let student = await Student.findByPk(req.params.studentId)
-    // let cart = await Cart.create(req.body)
-    let test = await Test.create(req.body)
-    // let userCart = await cart.setBook(book)
-    let studentTest = await test.setStudent(student)
-    //res.status(201).send(userCart)
-    res.status(201).send(studentTest)
-  } catch (err) {
-    next(err)
-  }
-})
-
-
-// get empty cart:
-// router.get("/", async (req, res, next) => {
-//   try {
-//     // check to see if cart ID exists;
-//   } catch (err) {
-//     console.log('>>>>>>>You are not Authorized!')
-//     next(err);
-//   }
-// });
-
 
 // find user cart:
-// >>>>>>> ATTEMPT 1 -> cart/cartId
-// >>>>>>> too many layers of authentication so couldn't review the data!
-// router.get("/:cartId", async (req, res, next) => {
-//   try {
-//     const user = await User.findByToken(req.headers.authorization)
-//     if (user) {
-//       const currentCart = await Cart.findOne({
-//         where: {
-//           id: req.params.cartId,
-//           userId: user.id,
-//           order_status: "in cart",
-//         },
-//         include: { model: Book },
-//       });
-//       if (currentCart) {
-//         res.json(currentCart);
-//       } else {
-//         console.log('no cart - get shopping!')
-//         throw new Error();
-//       }
-//     } else {
-//       console.log('Not your books!!!')
-//       throw new Error();
-//     }
-//   } catch (err) {
-//     console.log('>>>>>>>You are not Authorized!')
-//     next(err);
-//   }
-// });
-
-// find user cart:
-// >>>>>>> ATTEMPT 2 -> cart/cartId
-// >>>>>>> This is reliant on each cart being unique (which I believe they are!) & therefore
-// >>>>>>> two different users can't have the same cart or access it
-router.get("/:cartId", async (req, res, next) => {
+router.get("/", requireToken, async (req, res, next) => {
   try {
     const currentCart = await Cart.findOne({
       where: {
-        id: req.params.cartId,
+        userId: req.user.id,
         order_status: "in cart",
       },
       include: { model: Book },
@@ -86,27 +26,6 @@ router.get("/:cartId", async (req, res, next) => {
     next(err);
   }
 });
-
-// // find user cart:
-// >>>>>ATTEMPT 3
-// router.get("/:userId/:cartId", requireToken, async (req, res, next) => {
-//   try {
-//     const currentCart = await Cart.findOne({
-//       where: {
-//         userId: req.params.id,
-//         order_status: "in cart",
-//       },
-//       include: { model: Book },
-//     });
-//     if (currentCart) {
-//       res.json(currentCart);
-//     } else {
-//       throw new Error();
-//     }
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 // add item to cart:
 // router.post(':/userId/add', async (req, res, next) => {

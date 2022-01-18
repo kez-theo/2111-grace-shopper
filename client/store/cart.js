@@ -39,33 +39,17 @@ const gotCart = (cart) => ({ type: LOAD_CART, cart });
 //   }
 // };
 
-// export const loadCart = (userId) => async (dispatch) => {
-//   try {
-//     const { data, status } = await axios.get(`/api/cart/${userId}`);
-//     if (data) {
-//       dispatch(gotCart(data));
-//     } else if (status === 404) {
-//       throw new Error("cart empty");
-//     } else {
-//       throw new Error("error fetching cart");
-//     }
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
-
 // >>>>>>>>> KT Edits
-export const loadCart = (cartId) => {
+export const loadCart = () => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN)
       if (token) {
-        const { data: cart } = await axios.get(`/api/cart/${cartId}`, {
+        const { data: cart } = await axios.get(`/api/cart`, {
           headers: {
             authorization: token,
           },
         });
-        console.log(cart)
         dispatch(gotCart(cart));
       }
     } catch (err) {
