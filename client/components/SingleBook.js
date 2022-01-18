@@ -32,6 +32,8 @@ class SingleBook extends React.Component {
   }
 }
 
+//book has a bought property that once it is bought it is true. (keep in mind for button)
+
 const mapStateToProps = (state) => ({
   book: state.singleBookReducer,
 });
