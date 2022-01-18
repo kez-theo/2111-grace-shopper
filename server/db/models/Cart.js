@@ -55,9 +55,9 @@ const Cart = db.define("cart", {
   //     isDate: true
   //   },
   // },
-  sales_tax_at_checkout: Sequelize.INTEGER,
-  shipping_method: Sequelize.STRING,
-  shipping_price: Sequelize.INTEGER,
+  // sales_tax_at_checkout: Sequelize.INTEGER,
+  // shipping_method: Sequelize.STRING,
+  // shipping_price: Sequelize.INTEGER,
   billingAddress: Sequelize.STRING,
   shippingAddress: Sequelize.STRING,
 });
