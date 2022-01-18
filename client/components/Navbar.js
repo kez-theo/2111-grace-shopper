@@ -14,7 +14,7 @@ const Navbar = ({ handleClick, isLoggedIn, isUserAdmin }) => (
 
       {isLoggedIn ? (
         <div>
-          <Link to="/cart/:userId">Cart</Link>
+          <Link to="/cart">Cart</Link>
           <Link to="/edit">Profile</Link>
           {/* The navbar will show these links after you log in */}
           <a href="#" onClick={handleClick}>
