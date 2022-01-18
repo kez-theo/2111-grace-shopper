@@ -10,7 +10,7 @@ const Shipping = () => {
   return (
     <div>
       <CartTotalBox />
-      {/* we need some kind of order contents componrnt that can go right here */}
+      {/* Kerenie's cart books component can go right here */}
       <h1>Shipping Method</h1>
       <form>
         <div className="form-check">

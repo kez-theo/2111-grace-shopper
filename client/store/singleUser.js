@@ -18,6 +18,7 @@ export const _updateSingleUser = (user) => {
 }
 
 //might need to come back and change the route to be the secret one
+//You can do some  sort of eager loading where you access user whole id matches logged in id
 export const fetchSingleUser = (user) => {
     return async (dispatch) => {
         try{

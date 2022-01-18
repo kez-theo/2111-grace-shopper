@@ -11,11 +11,9 @@ import { logout } from "../store";
 const Navbar = ({ handleClick, isLoggedIn, isUserAdmin }) => (
   <div>
     <nav>
-      <h1>
         <Link className="logo" to="/homepage">
-          Book Shopper
+          <img src = 'logo.png' height = '100px' width = '300px'/>
         </Link>
-      </h1>
 
       {isLoggedIn ? (
         <div>
