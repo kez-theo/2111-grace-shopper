@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import singleBookReducer from "./singleBook";
+import singleUserReducer from "./singleUser"
 import booksReducer from "./books";
 import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   auth,
   booksReducer,
   singleBookReducer,
+  singleUserReducer,
   usersReducer,
 });
 const middleware = composeWithDevTools(

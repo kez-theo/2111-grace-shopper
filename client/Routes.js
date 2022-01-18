@@ -30,7 +30,7 @@ class Routes extends Component {
             <Route path="/edit" component={UserDataForm} />
             <Route path="/cart" component={Cart} />
             <Route exact path="/books/:bookId" component={SingleBook} />
-            <Route path="/edit" component={UserDataForm} />
+            <Route path="/edit/:userId" component={UserDataForm} />
             <Route path="/users" component={AllUsers} />
             <Redirect to="/homepage" />
           </Switch>

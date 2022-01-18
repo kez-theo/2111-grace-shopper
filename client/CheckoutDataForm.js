@@ -64,6 +64,7 @@ class UserDataForm extends React.Component {
 
         return (
             <div>
+                <h1>Checkout:</h1>
             <form onSubmit={handleSubmit} id = "update-user-form">
 
               <div>
