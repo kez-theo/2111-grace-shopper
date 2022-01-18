@@ -1,15 +1,22 @@
 import React from 'react'
 import { fetchCartThunk, removeItemThunk} from '../store/cart'
 // import { fetchUsers } from '../store/users'
-import { cartPlusThunk, cartMinusThunk } from '../store/cart'
+// import { cartPlusThunk, cartMinusThunk } from '../store/cart'
 import { connect } from 'react-redux';
 
 export class Cart extends React.Component {
+  constructor(props){
+    super(props)
+    this.handleDelete = this.handleDelete.bind(this)
+  }
   componentDidMount(){
     this.props.loadCart(this.props.match.params.cartId)
 }
- 
-
+async handleDelete (event) {
+  event.preventDefault();
+  const bookId=event.target.value
+  await this.props.deleteItem(bookId)
+}
   render() {
     const cart = this.props.cart || [];
     // if (this.props.currentUser.id) {
@@ -18,32 +25,18 @@ export class Cart extends React.Component {
     //   let localCart = localStorage.getItem('CART')
     //   cart = JSON.parse(localCart)
     // }
-    let total = 0;
-    if (cart) {
-      total = (
-        cart.reduce(
-          (acc, curr) =>
-            acc + curr.book.price,
-          0
-        ) / 100
-      ).toFixed(2)
-      //The toFixed() method formats a number using fixed-point notation. 
-      //ie: Number.parseFloat(123.4567).toFixed(2) = 123.46
-    } else {
-      total = 0
-    }
     return (
       <div>
         <h3>My Cart</h3>
-        {(!cart ? <span>You do not have any items in your cart.</span> :
-        cart.map(book =>
-          (
-            <li key={this.props.book.id}>
-              Title: {this.props.book.name} <br/>
+        {(cart.length === 0 ? <span>No items in cart.</span> :
+        cart.map(book =>{
+          <li key={book.id}>
+              Title: {book.title} <br/>
               Price: {this.props.book.price}<br/>
-            <button onClick={ () => this.props.deleteItem(cartId, bookId)}>Remove from Cart</button>
+            <button onClick={ () => this.props.deleteItem(this.handleDelete)}>Remove from Cart</button>
             </li>
-          )
+        }
+            
         ))}
         <Link to="/checkout"><button>checkout</button></Link>
       </div>
@@ -54,11 +47,12 @@ export class Cart extends React.Component {
 
 const mapState = (state) => ({
     cart: state.cart,
+    user: state.user
 })
 
 const mapDispatch = dispatch => ({
-   loadCart: cartId => dispatch(fetchCartThunk(cartId)),
-   deleteItem: (cartId, bookId) =>dispatch(removeItemThunk(cartId, bookId))
+   loadCart: () => dispatch(fetchCartThunk()),
+   deleteItem: (bookId) =>dispatch(removeItemThunk(bookId))
   //  currentUser: () =>dispatch()
 
 })
