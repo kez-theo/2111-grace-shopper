@@ -2675,7 +2675,7 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  loadCart: cartId => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.loadCart)(cartId))
+  loadCart: () => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.loadCart)())
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatch)(Cart));
@@ -2878,7 +2878,7 @@ class SingleBook extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, " Description: ", book.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, "$", book.price ? book.price / 100 : 5), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       type: "button",
-      onClick: () => console.log('Come back here and add functionality!')
+      onClick: () => console.log("Come back here and add functionality!")
     }, "Add to Cart"));
   }
 
