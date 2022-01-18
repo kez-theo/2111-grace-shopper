@@ -5,6 +5,7 @@ import singleBookReducer from "./singleBook";
 import booksReducer from "./books";
 import stockReducer from "./stock";
 import stockItemReducer from "./stockItem";
+import cartReducer from "./cart"
 import {composeWithDevTools} from 'redux-devtools-extension'
 import auth from './auth'
 import usersReducer from "./users";
@@ -17,7 +18,8 @@ const reducer = combineReducers({
   singleBookReducer,
   usersReducer,
   stockReducer,
-  stockItemReducer
+  stockItemReducer,
+  cartReducer
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
