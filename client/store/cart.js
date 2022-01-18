@@ -11,8 +11,8 @@ const EMPTY_CART = "EMPTY_CART";
 
 //ACTION CREATORS
 const fetchCart = (cart) => ({ type: LOAD_CART, cart });
-const addItem = (newBook) => ({ type: ADD_TO_CART, newBook})
-const removeItem = (deleteBook) => ({ type: REMOVE_ITEM, deletebook });
+const addItem = (newBook) => ({ type: ADD_TO_CART, newBook});
+const removeItem = (deleteBook)=> ({ type: REMOVE_ITEM, deleteBook});
 const cartPlus = (plus) => ({ type: CART_COUNT_ADD, plus})
 const cartMinus = (minus) => ({ type: CART_COUNT_SUBTRACT, minus})
 const emptyCart = () => ({ type: EMPTY_CART });
@@ -20,7 +20,7 @@ const emptyCart = () => ({ type: EMPTY_CART });
 //THUNKS
 export const fetchCartThunk = () => async (dispatch) => {
   try {
-    const { data, status } = await axios.get(`/api/cart`);
+    const { data, status } = await axios.get(`/api/cart/`, id);
     if (data) {
       dispatch(fetchCart(data));
     } else if (status === 404) {
@@ -50,7 +50,7 @@ export const addItemThunk = (id) => async (dispatch) => {
 
 export const removeItemThunk = (id) => async (dispatch) => {
   try {
-    const { status } = await axios.delete(`/api/cart/${id}`, );
+    const { status } = await axios.delete(`/api/cart/`, id);
 
     if (status === 200) {
       dispatch(removeItem(id));

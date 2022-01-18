@@ -1,17 +1,17 @@
 import React from 'react'
-import { fetchCartThunk, removeItemThunk } from '../store/cart'
+import { fetchCartThunk, removeItemThunk} from '../store/cart'
+// import { fetchUsers } from '../store/users'
 import { cartPlusThunk, cartMinusThunk } from '../store/cart'
 import { connect } from 'react-redux';
 
-class Cart extends React.Component {
-  async componentDidMount(){
-    await this.props.loadCart()
-  }
+export class Cart extends React.Component {
+  componentDidMount(){
+    this.props.loadCart(this.props.match.params.cartId)
+}
  
 
   render() {
-    const cart = this.props.cart;
-    // let cart
+    const cart = this.props.cart || [];
     // if (this.props.currentUser.id) {
     //   cart = this.props.cart
     // } else {
@@ -33,7 +33,7 @@ class Cart extends React.Component {
       total = 0
     }
     return (
-      <div class="cart">
+      <div>
         <h3>My Cart</h3>
         {(!cart ? <span>You do not have any items in your cart.</span> :
         cart.map(book =>
@@ -54,14 +54,13 @@ class Cart extends React.Component {
 
 const mapState = (state) => ({
     cart: state.cart,
-    // user?
-    // currentUser: state.me.id
-    // currentUser: state.userId
 })
 
 const mapDispatch = dispatch => ({
    loadCart: cartId => dispatch(fetchCartThunk(cartId)),
    deleteItem: (cartId, bookId) =>dispatch(removeItemThunk(cartId, bookId))
+  //  currentUser: () =>dispatch()
+
 })
 
 export default connect(mapState, mapDispatch)(Cart)

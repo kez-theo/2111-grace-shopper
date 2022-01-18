@@ -6,7 +6,7 @@ import UserDataForm from "./components/AddressInfo";
 import SingleBook from "./components/SingleBook";
 // import { LocalCart } from "./components/LocalCart";
 // import { UserCart } from "./components/LocalCart";
-import { Cart} from "./components/Cart";
+import { Cart } from "./components/Cart";
 import Home from "./components/Home";
 import Stock from "./components/Stock";
 import StockItem from "./components/StockItem";
