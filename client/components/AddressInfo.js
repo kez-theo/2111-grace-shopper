@@ -4,26 +4,11 @@ import { useHistory } from "react-router-dom";
 
 //NEED to create thunks to hit the database and send this data to
 
-<<<<<<< HEAD
-class AddressInfo extends React.Component {
-  render() {
-    return (
-      <div>
-        <form name="userData">
-          <h2>Billing Address</h2>
-          <div>
-            <label htmlFor="firstName">
-              <small>First Name</small>
-            </label>
-            <input name="firstName" type="text" />
-          </div>
-=======
 //For best practice do we use
 const AddressInfo = () => {
   const [firstName, setFirstName] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
->>>>>>> main
 
   const submitHandler = () => {
     e.preventDefault();
