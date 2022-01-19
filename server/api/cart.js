@@ -28,7 +28,9 @@ router.get("/", requireToken, async (req, res, next) => {
 });
 
 // add item to cart:
-//IF no token: guest cart
+// 401 Unauthorized response status code indicates that the 
+// client request has not been completed because it lacks valid 
+// authentication credentials for the requested resource.
 router.post("/", requireToken, async (req, res, next) => {
   try {
     const currentOrder = await Cart.findOrCreate({
@@ -37,12 +39,13 @@ router.post("/", requireToken, async (req, res, next) => {
         userId: req.user.id,
       }})
       const currBook = await Book.findByPk(req.body.id)
-      currentOrder.setCart(currBook)
-      res.json(currentOrder)
+      await currentOrder.addBook(currBook)
+      res.json(currBook)
 } catch (error) {
     next(error)
   }
 })
+
 
 
 // Routes
@@ -130,17 +133,6 @@ router.post("/", requireToken, async (req, res, next) => {
 // //   }
 // // })
 
-
-
-// // //update cart:
-// // router.put(':id', async (req, res, next) => {
-// //     try {
-// //       const updatingCart = await Cart.findByPk(req.params.id)
-// //       res.send(await updatingCart.update(req.body))
-// //     } catch (error) {
-// //       next(error)
-// //     }
-// //   })
 
 
 module.exports = router;
