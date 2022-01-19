@@ -2,8 +2,6 @@
 const fs = require("fs");
 const pkg = require("pg");
 const { Pool } = pkg;
-//const pkg = require("../package.json");
-
 const fastcsv = require("fast-csv");
 const {
   db,
