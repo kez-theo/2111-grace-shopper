@@ -37,7 +37,7 @@ const Stock = () => {
                   <button onClick={() => {
                     console.log('hello')
                     history.push(`/stock/${book.id}`)}}>Edit</button>
-                  <button onClick={() => removeStock(book.id)}>Delete</button>
+                  <button onClick={() => dispatch(removeStock(book.id))}>Delete</button>
                 </td>
               </tr>
             );

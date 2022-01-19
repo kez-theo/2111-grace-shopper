@@ -8,7 +8,11 @@ import { loadCart } from "../store/cart";
 const Checkout = () => {
   return (
     <div>
+<<<<<<< HEAD
       <h1>Thank you for Shopping at BookShopper!</h1>
+=======
+      <h1>Thank you for shopping with BookShopper!</h1>
+>>>>>>> f99136abb1ff4bf1660e8da2d44560549692af05
     </div>
   );
 };
