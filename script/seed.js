@@ -35,12 +35,13 @@ async function seed() {
 
       // create a new connection to the database
       const connectionString = process.env.DATABASE_URL;
+      const pool;
 
       //if connecting to heroku:
       if (process.env.NODE_ENV === "production") {
-        const pool = new Pool({ connectionString: connectionString });
+         pool = new Pool({ connectionString: connectionString });
       } else {
-        const pool = new Pool({
+         pool = new Pool({
           host: "localhost",
 
           user: process.env.USER,
