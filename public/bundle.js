@@ -2876,7 +2876,7 @@ class SingleBook extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         width: "220px",
         height: "350px"
       }
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, " Description: ", book.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, "$", book.price ? book.price / 100 : 5), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, " Description: ", book.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, "$", book.price ? book.price / 100 : 5.00), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       type: "button",
       onClick: () => console.log('Come back here and add functionality!')
     }, "Add to Cart"));
@@ -2934,13 +2934,12 @@ const Stock = () => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Author"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Price"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Action")), books.slice(0, 21).map(book => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
       key: book.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, book.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, book.author), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "$", (book.price / 100).toFixed(2)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, book.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, book.author), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "$", book.price ? (book.price / 100).toFixed(2) : 5.00), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       onClick: () => {
-        console.log('hello');
         history.push(`/stock/${book.id}`);
       }
     }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-      onClick: () => (0,_store_stock__WEBPACK_IMPORTED_MODULE_2__.removeStock)(book.id)
+      onClick: () => dispatch((0,_store_stock__WEBPACK_IMPORTED_MODULE_2__.removeStock)(book.id))
     }, "Delete")));
   }))));
 };
@@ -3685,18 +3684,19 @@ const fetchStock = () => {
     }
   };
 };
-const removeStock = (id, history) => {
+const removeStock = id => {
   return async dispatch => {
     try {
+      console.log('delete thunk works');
       const {
         data: stockItem
       } = await axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](`/api/stock/${id}`);
+      console.log(stockItem);
       dispatch(deleteStock(stockItem));
       const {
         data: stock
       } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/books');
-      dispatch(getStock(stock));
-      history.push(`/stock`);
+      dispatch(getStock(stock)); // history.push(`/stock`)
     } catch (err) {
       console.log(err);
     }

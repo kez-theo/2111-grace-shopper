@@ -21,7 +21,7 @@ class SingleBook extends React.Component {
                 <p>{book.author}</p>
                 <img src = {coverimg} style = {{width: "220px", height: "350px"}} />
                 <p> Description: {book.description}</p>
-                <h4>${book.price ? book.price/100 : 5}</h4>
+                <h4>${book.price ? book.price/100 : 5.00}</h4>
                 <button type = 'button' onClick = { () => console.log('Come back here and add functionality!')}>Add to Cart</button>
             </div>
         )
