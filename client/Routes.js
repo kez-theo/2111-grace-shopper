@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 //import UserDataForm from "./components/AddressInfo";
-import UserDataForm from './components/UserDataForm'
+import UserDataForm from "./components/UserDataForm";
 import SingleBook from "./components/SingleBook";
 // import { LocalCart } from "./components/LocalCart";
 // import { Cart } from "./components/Cart";
@@ -14,7 +14,6 @@ import StockItem from "./components/StockItem";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
 import Checkout from "./components/Checkout";
-import Shipping from "./components/Shipping";
 
 /**
  * COMPONENT
@@ -38,12 +37,11 @@ class Routes extends Component {
             {/* <Route path="/cart" component={Cart} /> */}
             {/* <Route path="/cart/:username" component={UserCart} /> */}
             <Route exact path="/books/:bookId" component={SingleBook} />
-             <Route path="/edit" component={UserDataForm} />
-             <Route exact path="/stock" component={Stock} />
+            <Route path="/edit" component={UserDataForm} />
+            <Route exact path="/stock" component={Stock} />
             <Route path="/stock/:stockId" component={StockItem} />
             <Route path="/users" component={AllUsers} />
-            <Route path="/checkout/address" component={Checkout} />
-            <Route path="/checkout/shipping" component={Shipping} />
+            <Route path="/checkout" component={Checkout} />
             <Redirect to="/homepage" />
           </Switch>
         ) : (

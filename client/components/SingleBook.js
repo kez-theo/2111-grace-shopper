@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 //import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchSingleBook } from '../store/singleBook';
@@ -13,9 +13,11 @@ class SingleBook extends React.Component {
 	}
     
 
-    componentDidMount(){
-            this.props.fetchSingleBook(this.props.match.params.bookId)
-    }
+  render() {
+    const book = this.props.book || {};
+    const { title, coverimg } = book;
+    console.log(this.props);
+    //console.log(this.state)
 
     async handleClick(event, item){
 		event.preventDefault()
@@ -42,17 +44,19 @@ class SingleBook extends React.Component {
             </div>
         )
     }
-}
+}}
+
+//book has a bought property that once it is bought it is true. (keep in mind for button)
 
 //book has a bought property that once it is bought it is true. (keep in mind for button)
 
 const mapStateToProps = (state) => ({
-    book: state.singleBookReducer
-})
+  book: state.singleBookReducer,
+});
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSingleBook: (bookId) => dispatch(fetchSingleBook(bookId)),
     addToCart: (item) => dispatch(addItemThunk(item))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleBook)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleBook);
