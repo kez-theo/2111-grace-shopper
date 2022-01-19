@@ -12,7 +12,7 @@ class AddBook extends React.Component{
             series: '',
             author: '',
             description: '',
-            isbn: 0,
+            // isbn: 0,
             //I set a default value in the sequelize model, null may not work
             coverimg: 'https://edit.org/images/cat/book-covers-big-2019101610.jpg'
         }
