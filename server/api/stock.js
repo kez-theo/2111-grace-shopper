@@ -40,7 +40,6 @@ router.delete('/:bookId', async(req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.bookId)
     await book.destroy();
-    //history.push('/')
     res.json(book);
   } catch (err) {
     next(err);
