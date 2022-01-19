@@ -1,79 +1,78 @@
+// import React from 'react';
+// import { createBook } from '../store/book'
+// import { Link } from 'react-router-dom';
+// import { connect } from 'react-redux';
 
-import React from 'react';
-import { createCampus } from '../redux/campuses'
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+// class AddBook extends React.Component{
+//     constructor(){
+//         super()
+//         this.state = {
+//             title: '',
+//             series: '',
+//             author: '',
+//             description: '',
+//             // isbn: 0,
+//             //I set a default value in the sequelize model, null may not work
+//             coverimg: 'https://edit.org/images/cat/book-covers-big-2019101610.jpg'
+//         }
+//     }
 
-class AddBook extends React.Component{
-    constructor(){
-        super()
-        this.state = {
-            title: '',
-            series: '',
-            author: '',
-            description: '',
-            // isbn: 0,
-            //I set a default value in the sequelize model, null may not work
-            coverimg: 'https://edit.org/images/cat/book-covers-big-2019101610.jpg'
-        }
-    }
+//     handleChange(evt) {
+//         this.setState({
+//           [evt.target.id]: evt.target.value
+//         });
+//       }
 
-    handleChange(evt) {
-        this.setState({
-          [evt.target.id]: evt.target.value
-        });
-      }
+//       handleSubmit(evt){
+//         evt.preventDefault(); 
+//         this.props.createBook({...this.state })
+//         this.setState({             
+//             title: '',
+//             series: '',
+//             author: '',
+//             description: '',
+//             isbn: 0000000000,
+//             coverimg: null})
+//     }
 
-      handleSubmit(evt){
-        evt.preventDefault(); 
-        this.props.createBook({...this.state })
-        this.setState({             
-            title: '',
-            series: '',
-            author: '',
-            description: '',
-            isbn: 0000000000,
-            coverimg: null})
-    }
-
-    render(){
-        const { handleSubmit, handleChange } = this;
-        const { title, series, author, description, isbn, coverimg } = this.state
+//     render(){
+//         const { handleSubmit, handleChange } = this;
+//         const { title, series, author, description, isbn, coverimg } = this.state
 
 
-        return(
-            <div id= 'add-book-form'>
-                <form id = 'add-book' onSubmit = {handleSubmit}>
-                    <h3>Add Book</h3>
-                    <label htmlFor = "title">Title</label>
-                    <input type = "text" id = "title" onChange = {handleChange} value = {title}/>
+//         return(
+//             <div id= 'add-book-form'>
+//                 <form id = 'add-book' onSubmit = {handleSubmit}>
+//                     <h3>Add Book</h3>
+//                     <label htmlFor = "title">Title</label>
+//                     <input type = "text" id = "title" onChange = {handleChange} value = {title}/>
 
-                    <label htmlFor = "series">Series</label>
-                    <input type = "text" id = "title" onChange = {handleChange} value = {series}/>
+//                     <label htmlFor = "series">Series</label>
+//                     <input type = "text" id = "title" onChange = {handleChange} value = {series}/>
 
-                    <label htmlFor = "author">Author</label>
-                    <input type = "text" id = "author" onChange = {handleChange} value = {author}/>
+//                     <label htmlFor = "author">Author</label>
+//                     <input type = "text" id = "author" onChange = {handleChange} value = {author}/>
 
-                    <label htmlFor = "isbn">ISBN</label>
-                    <input type = "number" id = "isbn" onChange = {handleChange} value = {isbn}/>
+//                     <label htmlFor = "isbn">ISBN</label>
+//                     <input type = "number" id = "isbn" onChange = {handleChange} value = {isbn}/>
 
-                    <label htmlFor = "description">Description</label>
-                    <input type = "text" id = "description" onChange = {handleChange} value = {description}/>
+//                     <label htmlFor = "description">Description</label>
+//                     <input type = "text" id = "description" onChange = {handleChange} value = {description}/>
 
-                    <label htmlFor = "image">Cover Image</label>
-                    <input type = "image" id = "image" onChange = {handleChange} value = {image}/>
+//                     <label htmlFor = "image">Cover Image</label>
+//                     <input type = "image" id = "image" onChange = {handleChange} value = {image}/>
 
-                    <button type = "submit">Submit</button>
-                    <Link to = "/stock">Cancel</Link>
-                </form>
-            </div>
-        )
-    }
+//                     <button type = "submit">Submit</button>
+//                     <Link to = "/stock">Cancel</Link>
+//                 </form>
+//             </div>
+//         )
+//     }
     
-}
+// }
 
-const mapDispatchToProps = (dispatch, {history}) => ({
-    createBook: (book) => dispatch(createBook(book, history))
-})
+// const mapDispatchToProps = (dispatch, {history}) => ({
+//     createBook: (book) => dispatch(createBook(book, history))
+// })
 
-export default connect(null, mapDispatchToProps)(AddBook)
+// export default connect(null, mapDispatchToProps)(AddBook)
