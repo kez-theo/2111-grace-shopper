@@ -86,7 +86,7 @@ componentDidUpdate(prevProps){
                 <label htmlFor="firstName">
                   <small>First Name</small>
                 </label>
-                <input id ="firstName" type="text" onChange = {handleChange} value = {firstName}/>
+                <input id ="firstName" type="text" onChangeq = {handleChange} value = {firstName}/>
               </div>
 
               <div>

@@ -44,6 +44,7 @@ const Book = db.define("book", {
   coverimg: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: 'https://edit.org/images/cat/book-covers-big-2019101610.jpg'
   },
   price: {
     type: Sequelize.INTEGER,

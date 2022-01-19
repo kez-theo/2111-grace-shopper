@@ -47,7 +47,6 @@ async function seed() {
       } else {
         pool = new Pool({
           host: "localhost",
-
           user: process.env.USER,
           database: `postgres://localhost:5432/${databaseName}`,
           password: process.env.PASSWORD,

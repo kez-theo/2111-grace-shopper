@@ -19,6 +19,7 @@ const Stock = () => {
 
   return (
     <div>
+      <button type = "button" onClick = {() => {history.push(`/add-book`)}}>Add Book </button>
       <table>
         <tbody>
           <tr>
@@ -32,12 +33,10 @@ const Stock = () => {
               <tr key={book.id}>
                 <td>{book.title}</td>
                 <td>{book.author}</td>
-                <td>${(book.price/100).toFixed(2)}</td>
+                <td>${book.price ? (book.price/100).toFixed(2) : 5.00}</td>
                 <td>
-                  <button onClick={() => {
-                    console.log('hello')
-                    history.push(`/stock/${book.id}`)}}>Edit</button>
-                  <button onClick={() => removeStock(book.id)}>Delete</button>
+                  <button onClick={() => {history.push(`/stock/${book.id}`)}}>Edit</button>
+                  <button onClick={() => dispatch(removeStock(book.id))}>Delete</button>
                 </td>
               </tr>
             );

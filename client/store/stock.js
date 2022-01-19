@@ -34,14 +34,13 @@ export const fetchStock = () => {
   };
 };
 
-export const removeStock = (id, history) => {
+export const removeStock = (id) => {
   return async (dispatch) => {
     try {
       const { data: stockItem } = await axios.delete(`/api/stock/${id}`);
       dispatch(deleteStock(stockItem));
       const { data: stock } = await axios.get('/api/books')
       dispatch(getStock(stock))
-      history.push(`/stock`)
     } catch (err) {
       console.log(err);
     }
