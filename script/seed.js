@@ -1,12 +1,17 @@
 "use strict";
 const fs = require("fs");
-const pkg = require("pg");
-const { Pool } = pkg;
+const pg = require("pg");
+const { Pool } = pg;
 const fastcsv = require("fast-csv");
 const {
   db,
   models: { Book, User, Cart },
 } = require("../server/db");
+
+const pkg = require("../package.json");
+
+const databaseName =
+  pkg.name + (process.env.NODE_ENV === "test" ? "-test" : "");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -39,7 +44,9 @@ async function seed() {
       const pool = new Pool({
         host: "localhost",
         user: process.env.USER,
-        database: "book_shopper",
+        database:
+          process.env.DATABASE_URL ||
+          `postgres://localhost:5432/${databaseName}`,
         password: process.env.PASSWORD,
         port: 5432,
       });
