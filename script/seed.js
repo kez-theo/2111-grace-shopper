@@ -34,22 +34,22 @@ async function seed() {
       csvData.shift();
 
       // create a new connection to the database
-      // const connectionString = process.env.DATABASE_URL;
+      const connectionString = process.env.DATABASE_URL;
 
       //if connecting to heroku:
-      //const pool = new Pool({
-      //   {connectionString: connectionString}
-      // }) else {}
+      if (process.env.NODE_ENV === "production") {
+        const pool = new Pool({ connectionString: connectionString });
+      } else {
+        const pool = new Pool({
+          host: "localhost",
 
-      const pool = new Pool({
-        host: "localhost",
-        user: process.env.USER,
-        database:
-          process.env.DATABASE_URL ||
-          `postgres://localhost:5432/${databaseName}`,
-        password: process.env.PASSWORD,
-        port: 5432,
-      });
+          user: process.env.USER,
+          database: `postgres://localhost:5432/${databaseName}`,
+          password: process.env.PASSWORD,
+          port: 5432,
+        });
+      }
+
       //sql query inserts data
       const query =
         "INSERT INTO books (title, series, author, description, language, isbn, genres, bookformat, pages, publisher, coverimg, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
