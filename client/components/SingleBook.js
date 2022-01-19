@@ -12,9 +12,9 @@ class SingleBook extends React.Component {
 		this.handleClick = this.handleClick.bind(this)
 	}
 
-  async handleClick(event, item){
+    async handleClick(event, item){
 		event.preventDefault();
-    await this.props.addToCart(item)
+    this.props.addToCart(item)
 		this.setState({
 			clicked: true
 		})
@@ -38,8 +38,6 @@ class SingleBook extends React.Component {
         )
     }
 }
-
-//book has a bought property that once it is bought it is true. (keep in mind for button)
 
 //book has a bought property that once it is bought it is true. (keep in mind for button)
 
