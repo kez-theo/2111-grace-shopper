@@ -1,24 +1,24 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import { loadCart } from "../store/cart";
 
 export class Cart extends React.Component {
   componentDidMount() {
-    this.props.loadCart()
+    this.props.loadCart();
   }
-  
+
   render() {
-    const cart = this.props.cart || {}
-    const books = this.props.cart.books || []
-    console.log(cart)
-    console.log(books)
+    const cart = this.props.cart || {};
+    const books = this.props.cart.books || [];
+    console.log(cart);
+    console.log(books);
     return (
       <>
         <div>
           <h2>My Cart</h2>
         </div>
         <div>
-          {books.map(book => (
+          {books.map((book) => (
             <div key={book.id}>
               <img src={book.coverimg} />
               <h3>{book.title}</h3>
@@ -28,16 +28,16 @@ export class Cart extends React.Component {
           ))}
         </div>
       </>
-    )
+    );
   }
 }
 
 const mapState = (state) => ({
-  cart: state.cartReducer
-})
+  cart: state.cartReducer,
+});
 
 const mapDispatch = (dispatch) => ({
-  loadCart: (cartId) => dispatch(loadCart(cartId)),
-})
+  loadCart: () => dispatch(loadCart()),
+});
 
 export default connect(mapState, mapDispatch)(Cart);
