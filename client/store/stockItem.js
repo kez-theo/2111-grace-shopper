@@ -40,7 +40,7 @@ export const fetchStockItem = (stockId) => {
 export const updateStock = (stockItem, history) => {
   return async (dispatch) => {
     try {
-      const { data: updatedItem } = await axios.put(`/api/stock/${book.id}`, stockItem);
+      const { data: updatedItem } = await axios.put(`/api/stock/${stockItem.id}`, stockItem);
       dispatch(editStock(updatedItem));
       history.push(`/stock`)
     } catch (err) {
