@@ -52,7 +52,6 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/checkout/address" component={Checkout} />
             <Route path="/cart" component={Cart} />
-            <Route path="/checkout/shipping" component={Shipping} />
           </Switch>
         )}
       </div>

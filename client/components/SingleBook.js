@@ -11,13 +11,6 @@ class SingleBook extends React.Component {
 		}
 		this.handleClick = this.handleClick.bind(this)
 	}
-    
-
-  render() {
-    const book = this.props.book || {};
-    const { title, coverimg } = book;
-    console.log(this.props);
-    //console.log(this.state)
 
     async handleClick(event, item){
 		event.preventDefault()
@@ -44,7 +37,7 @@ class SingleBook extends React.Component {
             </div>
         )
     }
-}}
+}
 
 //book has a bought property that once it is bought it is true. (keep in mind for button)
 
