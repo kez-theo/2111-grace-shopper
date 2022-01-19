@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 //import UserDataForm from "./components/AddressInfo";
-import UserDataForm from './components/UserDataForm'
+import UserDataForm from "./components/UserDataForm";
 import SingleBook from "./components/SingleBook";
 // import { LocalCart } from "./components/LocalCart";
 // import { Cart } from "./components/Cart";
@@ -15,7 +15,6 @@ import FormStockItem from "./components/FormStockItem";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
 import Checkout from "./components/Checkout";
-import Shipping from "./components/Shipping";
 
 /**
  * COMPONENT
@@ -44,8 +43,7 @@ class Routes extends Component {
             <Route exact path="/stock/:stockId" component={FormStockItem} />
             {/* <Route path="stock/:stockId/edit-stock" component={FormStockItem} /> */}
             <Route path="/users" component={AllUsers} />
-            <Route path="/checkout/address" component={Checkout} />
-            <Route path="/checkout/shipping" component={Shipping} />
+            <Route path="/checkout" component={Checkout} />
             <Redirect to="/homepage" />
           </Switch>
         ) : (
@@ -54,9 +52,8 @@ class Routes extends Component {
             <Route exact path="/books/:bookId" component={SingleBook} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/checkout/address" component={Checkout} />
+            <Route path="/checkout" component={Checkout} />
             {/* <Route path="/cart" component={LocalCart} /> */}
-            <Route path="/checkout/shipping" component={Shipping} />
           </Switch>
         )}
       </div>
