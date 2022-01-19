@@ -8,11 +8,7 @@ const Books = () => {
   //gives access to dispatch thunks directly
   const dispatch = useDispatch();
   //gives access to redux state
-  const { books } = useSelector((state) => {
-    return {
-      books: state.booksReducer,
-    };
-  });
+  const books = useSelector((state) => state.booksReducer);
 
   //where you preform side effects, including data fetching, manually changing the DOM, using history (also available as a hook). Basically componentDidMount, componentDidUpdate and componentWillUnmount combined.
   useEffect(() => {
@@ -22,7 +18,7 @@ const Books = () => {
 
   return (
     <div className="book-small">
-      {books.slice(0, 100).map((book) => {
+      {books.map((book) => {
         {
           if (book.bought === false)
             return (

@@ -1,15 +1,17 @@
 "use strict";
 const fs = require("fs");
-const pkg = require("pg");
-const { Pool } = pkg;
-//const pkg = require("../package.json");
-
+const pg = require("pg");
+const { Pool } = pg;
 const fastcsv = require("fast-csv");
 const {
   db,
-  models: { Book, User },
+  models: { Book, User, Cart },
 } = require("../server/db");
-const Cart = require("../server/db/models/Cart");
+
+const pkg = require("../package.json");
+
+const databaseName =
+  pkg.name + (process.env.NODE_ENV === "test" ? "-test" : "");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -32,13 +34,27 @@ async function seed() {
       csvData.shift();
 
       // create a new connection to the database
-      const pool = new Pool({
-        host: "localhost",
-        user: process.env.USER,
-        database: "book_shopper",
-        password: process.env.PASSWORD,
-        port: 5432,
-      });
+      let pool;
+
+      //if connecting to heroku:
+      if (process.env.NODE_ENV === "production") {
+        pool = new Pool({
+          connectionString: process.env.DATABASE_URL,
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        });
+      } else {
+        pool = new Pool({
+          host: "localhost",
+
+          user: process.env.USER,
+          database: `postgres://localhost:5432/${databaseName}`,
+          password: process.env.PASSWORD,
+          port: 5432,
+        });
+      }
+
       //sql query inserts data
       const query =
         "INSERT INTO books (title, series, author, description, language, isbn, genres, bookformat, pages, publisher, coverimg, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";

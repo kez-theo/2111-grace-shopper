@@ -43,17 +43,17 @@ const gotCart = (cart) => ({ type: LOAD_CART, cart });
 export const loadCart = () => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem(TOKEN)
+      const token = window.localStorage.getItem(TOKEN);
       if (token) {
-        const { data: cart } = await axios.get(`/api/cart`, {
+        const { data } = await axios.get("/api/cart", {
           headers: {
             authorization: token,
           },
         });
-        dispatch(gotCart(cart));
+        dispatch(gotCart(data));
       }
     } catch (err) {
-      console.log('>>>>>>thunk not working')
+      console.log(">>>>>>thunk not working");
     }
   };
 };
@@ -90,7 +90,7 @@ export const loadCart = () => {
 //   }
 // };
 
-const initialState = {}
+const initialState = {};
 
 //REDUCER
 export default function cartReducer(state = initialState, action) {
