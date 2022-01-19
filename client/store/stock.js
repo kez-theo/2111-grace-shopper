@@ -37,6 +37,7 @@ export const fetchStock = () => {
 export const removeStock = (id) => {
   return async (dispatch) => {
     try {
+      //console.log('delete thunk works')
       const { data: stockItem } = await axios.delete(`/api/stock/${id}`);
       dispatch(deleteStock(stockItem));
       const { data: stock } = await axios.get('/api/books')
@@ -44,7 +45,7 @@ export const removeStock = (id) => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }
 };
 
 //REDUCER

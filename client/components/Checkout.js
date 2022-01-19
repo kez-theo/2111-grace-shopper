@@ -8,7 +8,7 @@ import { loadCart } from "../store/cart";
 const Checkout = () => {
   return (
     <div>
-      <h1>Thank you for Shopping at BookShopper!</h1>
+      <h1>Thank you for shopping with BookShopper!</h1>
     </div>
   );
 };
