@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import singleBookReducer from "./singleBook";
+import singleUserReducer from "./singleUser"
 import booksReducer from "./books";
 import stockReducer from "./stock";
 import stockItemReducer from "./stockItem";
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   auth,
   booksReducer,
   singleBookReducer,
+  singleUserReducer,
   usersReducer,
   stockReducer,
   stockItemReducer,

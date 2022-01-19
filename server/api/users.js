@@ -8,6 +8,7 @@ module.exports = router;
 //the routes are mounted on /users in the index
 router.get("/", async (req, res, next) => {
   try {
+    console.log(requireToken)
     //if we managed to make it PAST require token, we can guarantee that we have a user!
     //isAdmin lets us check to see if that user is an Admin
     const users = await User.findAll({
@@ -30,7 +31,7 @@ router.get("/", async (req, res, next) => {
 
 //Route to get a specific user based off of id
 //mounted on /users/:id
-router.get("/:id", async (res, req, next) => {
+router.get("/:id", requireToken, async (res, req, next) => {
   try {
     const singleUser = await User.findByPk(req.params.id);
     res.json(singleUser);
@@ -39,20 +40,8 @@ router.get("/:id", async (res, req, next) => {
   }
 });
 
-//** Post Route exists in the auth folder */
-//posts a new user
-//Make note to create a user you only need to input a unique username
-// router.post('/', async(req, res, next) => {
-//   try {
-//     const newUser = await User.create(req.body);
-//     res.json(newUser);
-//   } catch (err) {
-//     next (err)
-//   }
-// })
-
 //Will need to use a token to modify data in the future. Look at file auth/index.
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", requireToken, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     res.json(await user.update(req.body));
