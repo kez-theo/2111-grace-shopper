@@ -34,12 +34,16 @@ async function seed() {
       csvData.shift();
 
       // create a new connection to the database
-      const connectionString = process.env.DATABASE_URL;
       let pool;
 
       //if connecting to heroku:
       if (process.env.NODE_ENV === "production") {
-        pool = new Pool({ connectionString: connectionString });
+        pool = new Pool({
+          connectionString: process.env.DATABASE_URL,
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        });
       } else {
         pool = new Pool({
           host: "localhost",
