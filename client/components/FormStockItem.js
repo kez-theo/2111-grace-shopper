@@ -1,14 +1,61 @@
 import React from "react"
 import { connect } from "react-redux"
-import { updateStock } from "../store/stockItem";
+import { fetchStockItem, updateStock } from "../store/stockItem";
 
 
 class FormStockItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      title: '',
+      series: '',
+      author: '',
+      description: '',
+      language: '',
+      isbn: '',
+      genres: '',
+      bookformat: '',
+      pages: '',
+      publisher: '',
+      coverimg: '',
+      price: ''
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const id = this.props.match.params.stockId;
+    this.props.fetchStockItem(id);
+  }
+
+  componentWillUnmount() {
+    this.props.clearStockItem();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.stockId !== this.props.stockId) {
+      this.setState({
+        title: this.props.stockItem.title || '',
+        series: this.props.stockItem.series || '',
+        author: this.props.stockItem.author || '',
+        description: this.props.stockItem.description || '',
+        language: this.props.stockItem.language || '',
+        isbn: this.props.stockItem.isbn || '',
+        genres: this.props.stockItem.genres || '',
+        bookformat: this.props.stockItem.bookformat || '',
+        pages: this.props.stockItem.pages || '',
+        publisher: this.props.stockItem.publisher || '',
+        coverimg: this.props.stockItem.coverimg || '',
+        price: this.props.stockItem.price || ''
+      });
+    }
+  }
+
+  handleChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
   }
 
   handleSubmit(evt) {
@@ -16,58 +63,64 @@ class FormStockItem extends React.Component {
     this.props.updateStock({...this.props.stockItem, ...this.state})
   }
     
-
   render() {
+    const { title, series, author, description, language, isbn, genres,
+      bookformat, pages, publisher, coverimg, price } = this.state
+
     return (
       <div>
-        <h1>Edit a Book</h1>
-        <form>
+        <h2>Edit a Book</h2>
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor="title">Edit Book Title</label>
-          <input name="title" value={title} />
+          <input name="title" onChange={this.handleChange} value={title} />
 
           <label htmlFor="series">Edit Series</label>
-          <input name="series" value={series} />
+          <input name="series" onChange={this.handleChange} value={series} />
 
           <label htmlFor="author">Edit Author</label>
-          <input name="author" value={author} />
+          <input name="author" onChange={this.handleChange} value={author} />
 
           <label htmlFor="description">Edit Description</label>
-          <input name="description" value={description} />
+          <input name="description" onChange={this.handleChange} value={description} />
 
           <label htmlFor="language">Edit Langauge</label>
-          <input name="language" value={language} />
+          <input name="language" onChange={this.handleChange} value={language} />
 
           <label htmlFor="isbn">Edit Isbn</label>
-          <input name="isbn" value={isbn} />
+          <input name="isbn" onChange={this.handleChange} value={isbn} />
 
           <label htmlFor="genres">Edit Genres</label>
-          <input name="genres" value={genres} />
+          <input name="genres" onChange={this.handleChange} value={genres} />
 
           <label htmlFor="bookformat">Edit Book Format</label>
-          <input name="bookformat" value={bookformat} />
+          <input name="bookformat" onChange={this.handleChange} value={bookformat} />
 
           <label htmlFor="pages">Edit Page Numbers</label>
-          <input name="pages" value={pages} />
+          <input name="pages" onChange={this.handleChange} value={pages} />
 
           <label htmlFor="publisher">Edit Publisher</label>
-          <input name="publisher" value={publisher} />
+          <input name="publisher" onChange={this.handleChange} value={publisher} />
 
           <label htmlFor="coverimg">Edit Cover Image</label>
-          <input name="coverimg" value={coverimg} />
+          <input name="coverimg" onChange={this.handleChange} value={coverimg} />
 
           <label htmlFor="price">Edit Price</label>
-          <input name="price" value={price} />
+          <input name="price" onChange={this.handleChange} value={price} />
+
+          <button type='submit'>Update Book</button>
         </form>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ book }) => ({
-  book
+const mapStateToProps = ({ stockItem }) => ({
+  stockItem
 })
 
 const mapDispatch = (dispatch, { history}) => ({
-  updateStock: (stockItem) => dispatch(updateStock(stockItem, history))
+  fetchStockItem: (stockId) => dispatch(fetchStockItem(stockId)),
+  updateStock: (stockItem) => dispatch(updateStock(stockItem, history)),
+  clearStockItem: () => dispatch(fetchStockItem({}))
 })
 export default connect(mapStateToProps, mapDispatch)(FormStockItem);
