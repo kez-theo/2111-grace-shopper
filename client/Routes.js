@@ -11,6 +11,7 @@ import KTCart from "./components/KTCart";
 import Home from "./components/Home";
 import Stock from "./components/Stock";
 import StockItem from "./components/StockItem";
+import FormStockItem from "./components/FormStockItem";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
 import Checkout from "./components/Checkout";
@@ -38,9 +39,10 @@ class Routes extends Component {
             {/* <Route path="/cart" component={Cart} /> */}
             {/* <Route path="/cart/:username" component={UserCart} /> */}
             <Route exact path="/books/:bookId" component={SingleBook} />
-             <Route path="/edit" component={UserDataForm} />
-             <Route exact path="/stock" component={Stock} />
+            <Route path="/edit" component={UserDataForm} />
+            <Route exact path="/stock" component={Stock} />
             <Route path="/stock/:stockId" component={StockItem} />
+            <Route path="stock/:stockId/edit-stock" component={FormStockItem} />
             <Route path="/users" component={AllUsers} />
             <Route path="/checkout/address" component={Checkout} />
             <Route path="/checkout/shipping" component={Shipping} />
