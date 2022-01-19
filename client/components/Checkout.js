@@ -6,20 +6,11 @@ import { loadCart } from "../store/cart";
 //import all thunks needed here
 
 const Checkout = () => {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cartReducer);
-
-  useEffect(() => {
-    dispatch(loadCart());
-  }, []);
-
-  return <div>
-    <h1>Thank you for shopping with BookShopper!</h1>
-    <h2>Your order:</h2>
-    {cart.books.map((book) => {
-      <div>
-    })}
-  </div>;
+  return (
+    <div>
+      <h1>Thank you for shopping with BookShopper!</h1>
+    </div>
+  );
 };
 
 export default Checkout;

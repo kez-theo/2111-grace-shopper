@@ -49,7 +49,7 @@ async function seed() {
           host: "localhost",
 
           user: process.env.USER,
-          database: `postgres://localhost:5432/${databaseName}`,
+          database: "book_shopper",
           password: process.env.PASSWORD,
           port: 5432,
         });
