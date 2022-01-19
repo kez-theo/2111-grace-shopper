@@ -36,11 +36,12 @@ router.get('/:stockId', async(req, res, next) => {
 // })
 
 // //route to delete book
-// router.delete('/', requireToken, isAdmin, async(req, res, next) => {
-//   try {
-//     const book = await Book.findByPk(req.params.bookId)
-//     res.json(book);
-//   } catch (err) {
-//     next(err);
-//   }
-// })
+router.delete('/:bookId', async(req, res, next) => {
+  try {
+    const book = await Book.findByPk(req.params.bookId)
+    await book.destroy();
+    res.json(book);
+  } catch (err) {
+    next(err);
+  }
+})

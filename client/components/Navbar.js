@@ -2,15 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+//come back and put the logo in. It says you may need an appropriate type of loader to get this to work
+//need to serve up an img file
+//import Logo from "../../public/Logo.png"
+
+
 
 const Navbar = ({ handleClick, isLoggedIn, isUserAdmin }) => (
   <div>
     <nav>
-      <h1>
         <Link className="logo" to="/homepage">
-          Book Shopper
+          <img src = 'logo.png' height = '100px' width = '300px'/>
         </Link>
-      </h1>
 
       {isLoggedIn ? (
         <div>
