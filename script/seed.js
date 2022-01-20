@@ -47,7 +47,6 @@ async function seed() {
       } else {
         pool = new Pool({
           host: "localhost",
-
           user: process.env.USER,
           database: "book_shopper",
           password: process.env.PASSWORD,

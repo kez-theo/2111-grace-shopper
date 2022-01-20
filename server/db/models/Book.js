@@ -21,7 +21,7 @@ const Book = db.define("book", {
   },
   isbn: {
     type: Sequelize.STRING,
-    allowNull: false,
+    //allowNull: false,
     validate: {
       len: [10, 13],
     },
@@ -44,6 +44,7 @@ const Book = db.define("book", {
   coverimg: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: 'https://edit.org/images/cat/book-covers-big-2019101610.jpg'
   },
   price: {
     type: Sequelize.INTEGER,
