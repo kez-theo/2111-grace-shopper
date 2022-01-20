@@ -14,6 +14,7 @@ import StockItem from "./components/StockItem";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
 import Checkout from "./components/Checkout";
+import AddBook from "./components/AddBook";
 
 /**
  * COMPONENT
@@ -42,6 +43,7 @@ class Routes extends Component {
             <Route path="/stock/:stockId" component={StockItem} />
             <Route path="/users" component={AllUsers} />
             <Route path="/checkout" component={Checkout} />
+            <Route path = "/add-book" component = {AddBook} />
             <Redirect to="/homepage" />
           </Switch>
         ) : (
