@@ -39,7 +39,11 @@ export const addItemThunk = (item) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN)
       if (token) {
-    const { data: cart } = await axios.post("/api/cart", item);
+    const { data: cart } = await axios.post("/api/cart", item, {
+      headers: {
+        authorization: token
+      }
+    });
 
       dispatch(updateCart(cart));
       }
@@ -67,7 +71,7 @@ export default function cartReducer(state = initialState, action) {
     case LOAD_CART:
       return action.cart;
       case UPDATE_CART:{
-        return [...state, action.cart]
+        return action.cart
       } 
       case REMOVE_ITEM:{
         const newState = state.filter(

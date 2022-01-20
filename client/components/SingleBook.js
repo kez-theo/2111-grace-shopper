@@ -16,8 +16,7 @@ class SingleBook extends React.Component {
     this.props.fetchSingleBook(this.props.match.params.bookId);
   }
 
-  handleClick(event, item){
-		event.preventDefault();
+  handleClick(item){
     this.props.addToCart(item)
 		this.setState({
 			clicked: true
@@ -37,7 +36,7 @@ class SingleBook extends React.Component {
           <img src = {coverimg} style = {{width: "220px", height: "350px"}} />
           <p> Description: {book.description}</p>
           <h4>${book.price ? book.price/100 : 5}</h4>
-          <button type="button" onClick={(event) => this.handleClick(event, this.props.product)}>Add To Cart</button>
+          <button type="button" onClick={() => this.handleClick(book)}>Add To Cart</button>
       </div>
   )
   }
