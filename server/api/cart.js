@@ -35,6 +35,24 @@ router.get("/", requireToken, async (req, res, next) => {
   }
 });
 
+// 401 Unauthorized response status code indicates that the 
+// client request has not been completed because it lacks valid 
+// authentication credentials for the requested resource.
+router.post("/", requireToken, async (req, res, next) => {
+  try {
+    const currentOrder = await Cart.findOrCreate({
+      where: {
+        order_status: 'in cart',
+        userId: req.user.id,
+      }})
+      const currBook = await Book.findByPk(req.body.id)
+      await currentOrder.addBook(currBook)
+      res.json(currBook)
+} catch (error) {
+    next(error)
+  }
+})
+
 // add item to cart:
 // router.post(':/userId/add', async (req, res, next) => {
 //   try {

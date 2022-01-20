@@ -5,10 +5,7 @@ import { Login, Signup } from "./components/AuthForm";
 //import UserDataForm from "./components/AddressInfo";
 import UserDataForm from "./components/UserDataForm";
 import SingleBook from "./components/SingleBook";
-// import { LocalCart } from "./components/LocalCart";
-// import { Cart } from "./components/Cart";
-import KTCart from "./components/KTCart";
-import Home from "./components/Home";
+import Cart from "./components/Cart";
 import Stock from "./components/Stock";
 import StockItem from "./components/StockItem";
 import { me } from "./store";
@@ -32,8 +29,8 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/homepage" component={Home} />
-            <Route path="/cart" component={KTCart} />
+            {/* <Route path="/homepage" component={Home} /> */}
+            <Route path="/cart" component={Cart} />
             {/* <Route path="/cart" component={Cart} /> */}
             {/* <Route path="/cart/:username" component={UserCart} /> */}
             <Route exact path="/books/:bookId" component={SingleBook} />
@@ -46,12 +43,14 @@ class Routes extends Component {
           </Switch>
         ) : (
           <Switch>
-            <Route path="/homepage" component={Home} />
+            {/* <Route path="/homepage" component={Home} /> */}
             <Route exact path="/books/:bookId" component={SingleBook} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/checkout" component={Checkout} />
             {/* <Route path="/cart" component={LocalCart} /> */}
+            <Route path="/cart" component={Cart} />
+
           </Switch>
         )}
       </div>
