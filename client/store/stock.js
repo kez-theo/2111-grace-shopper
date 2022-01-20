@@ -70,21 +70,23 @@ export const setStock = (stock, history) => {
 export const updateStock = (stockItem, history) => {
   return async (dispatch) => {
     try {
-      console.log("happy birthday!")
-      // const { data } = await axios.get(`/api/stock/${stockItem.id}`)
+      // console.log("happy birthday!")
+      // // const { data } = await axios.get(`/api/stock/${stockItem.id}`)
+      // // console.log(">>>>>>>DATA", data)
+      // const { data } = await axios.put(`/api/stock/${stockItem.id}`)
       // console.log(">>>>>>>DATA", data)
-      const { data } = await axios.put(`/api/stock/${stockItem.id}`)
-      console.log(">>>>>>>DATA", data)
-      // console.log('>>>>DATA', data)
-      // const token = window.localStorage.getItem(TOKEN)
-      // if (token){   
-      //   const { data } = await axios.put(`/api/stock/${stockItem.id}`, stockItem, {
-      //     headers: {
-      //       authorization: token,
-      //     }
-      //   })  
-      //   console.log('>>>>DATA', data)
+      // // console.log('>>>>DATA', data)
+      const token = window.localStorage.getItem(TOKEN)
+      if (token){   
+        const { data } = await axios.put(`/api/stock/${stockItem.id}`, stockItem, {
+          headers: {
+            authorization: token,
+          }
+        })
         dispatch(editStock(data));
+      }  
+      //   console.log('>>>>DATA', data)
+      
         // history.push("/stock")
       // }
     } catch (err) {

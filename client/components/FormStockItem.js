@@ -38,8 +38,7 @@ export class FormStockItem extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.updateStock( { ...this.state } )
-
+    this.props.updateStock( { ...this.props.stockItem, ...this.state } )
   }
     
   render() {

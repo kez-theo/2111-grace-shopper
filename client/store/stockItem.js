@@ -25,7 +25,6 @@ export const fetchStockItem = (stockId) => {
             authorization: token,
           },
         });
-        consol
         dispatch(getStockItem(stockItem));
       }
     } catch (err) {
