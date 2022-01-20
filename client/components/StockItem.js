@@ -24,10 +24,8 @@ const StockItem = () => {
           <img src={book.coverimg} style={{ width: "220px", height: "350px" }} />
           <p> Description: {book.description}</p>
           <h4>${book.price ? (book.price/100).toFixed(2) : 5.00}</h4>
-          <Link to={`/stock/${book.id}`}>
-            <button>
-                Update Item
-            </button>
+          <Link to={ `/stock/edit/${book.id}` }>
+            <button>Update Item</button>
           </Link>
         </div>
     );

@@ -18,7 +18,7 @@ class SingleBook extends React.Component {
       <div>
         <h1>{title}</h1>
         <p>{book.author}</p>
-        <img src={book.coverimg} style={{ width: "220px", height: "350px" }} />
+        <img src={coverimg} style={{ width: "220px", height: "350px" }} />
         <p> Description: {book.description}</p>
         <h4>${book.price ? book.price / 100 : 5}</h4>
         <button

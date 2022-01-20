@@ -1,12 +1,14 @@
 import React from "react"
 import { connect } from "react-redux"
-import { fetchStockItem, updateStock } from "../store/stockItem";
+import { fetchStockItem } from "../store/stockItem";
+import { updateStock } from "../store/stock";
 
 
-class FormStockItem extends React.Component {
+export class FormStockItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: this.props.match.params.stockId,
       title: '',
       price: ''
     }
@@ -14,24 +16,19 @@ class FormStockItem extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    console.log(this.props)
-    this.props.fetchStockItem(this.props.match.params.stockId);
-    console.log(this.props.stockItem)
-  }
+  // componentDidMount() {
+  //   console.log(this.props)
+  //   // this.props.fetchStockItem(this.props.match.params.stockId);
+  //   console.log(this.props.stockItem)
+  //   // this.setState({
+  //   //   title: this.props.stockItem.title || '',
+  //   //   price: this.props.stockItem.price || ''
+  //   // });
+  // }
 
-  componentWillUnmount() {
-    this.props.clearStockItem();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.stockItem.id !== this.props.stockItem.id) {
-      this.setState({
-        title: this.props.stockItem.title || '',
-        price: this.props.stockItem.price || ''
-      });
-    }
-  }
+  // componentWillUnmount() {
+  //   this.props.clearStockItem();
+  // }
 
   handleChange(evt) {
     this.setState({
@@ -41,23 +38,25 @@ class FormStockItem extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.updateStock({...this.props.stockItem, ...this.state})
+    this.props.updateStock( { ...this.state } )
+
   }
     
   render() {
-    const { title, author, description, price } = this.state
+    const { title, price } = this.state
     
     const { handleSubmit, handleChange } = this;
-
+    console.log('>>>>PROPS', this.props)
+    console.log('>>>>STATE', this.state)
     return (
       <div>
         <h2>Edit a Book</h2>
         <form onSubmit={handleSubmit}>
           <label htmlFor="title">Edit Book Title</label>
-          <input name="title" onChange={handleChange} value={title} />
+          <input type="text" name="title" onChange={handleChange} value={title} />
 
           <label htmlFor="price">Edit Price</label>
-          <input name="price" onChange={handleChange} value={price} />
+          <input type="text" name="price" onChange={handleChange} value={price} />
 
           <button type='submit'>Update Book</button>
         </form>
@@ -66,13 +65,14 @@ class FormStockItem extends React.Component {
   }
 }
 
-const mapStateToProps = ({ stockItem }) => ({
-  stockItem
-})
+// const mapStateToProps = ({ stockItemReducer }) => ({
+//   stockItemReducer
+// })
 
 const mapDispatch = (dispatch, { history}) => ({
-  fetchStockItem: (stockId) => dispatch(fetchStockItem(stockId)),
+  fetchStockItem: (id) => dispatch(fetchStockItem(id)),
   updateStock: (stockItem) => dispatch(updateStock(stockItem, history)),
   clearStockItem: () => dispatch(fetchStockItem({}))
 })
-export default connect(mapStateToProps, mapDispatch)(FormStockItem);
+
+export default connect(null, mapDispatch)(FormStockItem);

@@ -6,6 +6,7 @@ const TOKEN = "token";
 const GET_STOCK = "GET_STOCK";
 const DELETE_STOCK = "DELETE_STOCK";
 const ADD_STOCK = "ADD_STOCK"
+const EDIT_STOCK = "EDIT_STOCK";
 
 //ACTION CREATORS
 export const getStock = (stock) => ({
@@ -23,6 +24,11 @@ export const setSingleItem = (singleBook) =>({
   type: ADD_STOCK,
   singleBook
 })
+
+export const editStock = (stockItem) => ({
+  type: EDIT_STOCK,
+  stockItem,
+});
 
 
 // export const addStock = stock => ({})
@@ -61,6 +67,33 @@ export const setStock = (stock, history) => {
   }
 }
 
+export const updateStock = (stockItem, history) => {
+  return async (dispatch) => {
+    try {
+      console.log("happy birthday!")
+      // const { data } = await axios.get(`/api/stock/${stockItem.id}`)
+      // console.log(">>>>>>>DATA", data)
+      const { data } = await axios.put(`/api/stock/${stockItem.id}`)
+      console.log(">>>>>>>DATA", data)
+      // console.log('>>>>DATA', data)
+      // const token = window.localStorage.getItem(TOKEN)
+      // if (token){   
+      //   const { data } = await axios.put(`/api/stock/${stockItem.id}`, stockItem, {
+      //     headers: {
+      //       authorization: token,
+      //     }
+      //   })  
+      //   console.log('>>>>DATA', data)
+        dispatch(editStock(data));
+        // history.push("/stock")
+      // }
+    } catch (err) {
+      console.log(">>>>>>>>>>thunk not working!!")
+      console.log(err);
+    }
+  };
+};
+
 export const removeStock = (id) => {
   return async (dispatch) => {
     try {
@@ -91,6 +124,8 @@ export default function stockReducer(state = initialState, action) {
       return action.stock;
         case ADD_STOCK:
       return [...state, action.singleBook]
+    case EDIT_STOCK:
+      return state.map((stockItem) => {stockItem.id === action.stockItem.id ? action.stockItem : stockItem});
     case DELETE_STOCK:
       return state.filter((stockItem) => stockItem.id !== action.stockItem.id);
     default:

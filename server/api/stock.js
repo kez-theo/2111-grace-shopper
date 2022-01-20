@@ -6,7 +6,7 @@ module.exports = router;
 //admin book routes
 
 //get all books
-router.get("/", requireToken, isAdmin, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const books = await Book.findAll();
     res.json(books);
@@ -16,7 +16,7 @@ router.get("/", requireToken, isAdmin, async (req, res, next) => {
 });
 
 //route to single book
-router.get('/:stockId', requireToken, isAdmin, async(req, res, next) => {
+router.get('/:stockId', async(req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.stockId)
     res.json(book);
@@ -30,30 +30,18 @@ router.put('/:stockId', async(req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.stockId)
     console.log(book)
-    const updatedBook = await book.update(req.body)
-    res.json(updatedBook);
+    res.json(await book.update(req.body));
   } catch (err) {
     next(err);
   }
 })
 
 // //route to delete book
-router.delete('/:bookId', requireToken, isAdmin, async(req, res, next) => {
-  try {
-    const book = await Book.findByPk(req.params.bookId)
-    await book.destroy();
-    res.json(book);
-  } catch (err) {
-    next(err);
-  }
-})
-
-router.post('/', requireToken, isAdmin, async(req, res, next) => {
-  try {
-    console.log("post route gets hit")
-    const book = await Book.create(req.body)
-    res.json(book);
-  } catch (err) {
-    next(err);
-  }
-})
+// router.delete('/', requireToken, isAdmin, async(req, res, next) => {
+//   try {
+//     const book = await Book.findByPk(req.params.bookId)
+//     res.json(book);
+//   } catch (err) {
+//     next(err);
+//   }
+// })

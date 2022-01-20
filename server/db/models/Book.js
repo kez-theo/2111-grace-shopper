@@ -11,7 +11,7 @@ const Book = db.define("book", {
   },
   author: {
     type: Sequelize.STRING,
-    allowNull: false,
+    // allowNull: false,
   },
   description: {
     type: Sequelize.TEXT,
