@@ -4,46 +4,22 @@ const TOKEN = "token";
 
 //ACTIONS
 const LOAD_CART = "LOAD_CART";
-// const REMOVE_ITEM = "REMOVE_ITEM";
-// const CART_QUANTITY = "CART_QUANTITY";
-// const EMPTY_CART = "EMPTY_CART";
-//^^ switch to just local
+const UPDATE_CART = "UPDATE_CART";
+const REMOVE_ITEM = "REMOVE_ITEM";
+// EMPTY CART each time user checks out
+const EMPTY_CART = "EMPTY_CART";
+
 
 //ACTION CREATORS
 const gotCart = (cart) => ({ type: LOAD_CART, cart });
+const updateCart = (cart) =>({ type: UPDATE_CART, cart})
+const removeItem = (book)=> ({ type: REMOVE_ITEM, book});
+const emptyCart = () => ({ type: EMPTY_CART });
 
-// const removeItem = (bookId) => ({ type: REMOVE_ITEM, bookId });
-
-// const cartQuantity = (updates) => ({
-//   type: CART_QUANTITY,
-//   productId: updates.productId,
-//   quantity: updates.quantity,
-// });
-// const emptyCart = () => ({ type: EMPTY_CART });
-
-//THUNKS
-// export const addItemThunk = (idObj) => async (dispatch) => {
-//   try {
-//     const { data, status } = await axios.put("/api/cart/add", idObj);
-//     if (data.alert) {
-//       alert("THAT'S ALL THE STOCK WE HAVE!");
-//     } else if (status === 200) {
-//       dispatch(gotCart(data));
-//     } else if (status === 401) {
-//       throw new Error("Warning: attempt to edit another user's cart");
-//     } else {
-//       throw new Error("failed to add item");
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// >>>>>>>>> KT Edits
+//Thunks
 export const loadCart = () => {
   return async (dispatch) => {
-    try {
-      const token = window.localStorage.getItem(TOKEN);
+    try { const token = window.localStorage.getItem(TOKEN);
       if (token) {
         const { data } = await axios.get("/api/cart", {
           headers: {
@@ -58,56 +34,54 @@ export const loadCart = () => {
   };
 };
 
-// export const _removeItem = (idObj) => async (dispatch) => {
-//   try {
-//     const { status } = await axios.put(`/api/cart/remove`, idObj);
+// funk for adding book to cart
+export const addItemThunk = (item) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem(TOKEN)
+      if (token) {
+    const { data: cart } = await axios.post("/api/cart", item, {
+      headers: {
+        authorization: token
+      }
+    });
 
-//     if (status === 200) {
-//       dispatch(removeItem(idObj.productId));
-//     } else if (status === 401) {
-//       throw new Error("Warning: attempt to edit another user's cart");
-//     } else {
-//       throw new Error("failed to remove item");
-//     }
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+      dispatch(updateCart(cart));
+      }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// export const editQuantity = (updateObj) => async (dispatch) => {
-//   try {
-//     const { data, status } = await axios.put(`/api/cart/quantity`, updateObj);
+// funk for deleting book from cart
+export const removeItemThunk = (bookId) => async(dispatch) => {
+  try{
+      await axios.delete(`/api/cart/${bookId}`)
+      dispatch(removeItem(bookId))
+  } catch(err){
+    console.log('error removing book')
+  }
+}
 
-//     if (status === 200) {
-//       dispatch(cartQuantity(data));
-//     } else if (status === 401) {
-//       throw new Error("Warning: attempt to edit another user's cart");
-//     } else {
-//       throw new Error("failed to edit item quantity");
-//     }
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+//Initial state:
+const initialState = {} 
 
-const initialState = {};
-
-//REDUCER
+//RReducer
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_CART:
       return action.cart;
-    // case REMOVE_ITEM:
-    //   return {
-    //     ...state,
-    //     products: state.products.filter(
-    //       (product) => product.id !== action.productId
-    //     ),
-    //   };
-
-    // case EMPTY_CART:
-    //   return defaultCartState;
-    default:
-      return state;
+      case UPDATE_CART:{
+        return action.cart
+      } 
+      case REMOVE_ITEM:{
+        const newState = state.filter(
+          cartBook => cartBook.bookId !== action.bookId
+        )
+        return newState
+      }
+      case EMPTY_CART:
+        return initialState;
+      default:
+        return state;
+    }
   }
-}

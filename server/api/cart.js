@@ -36,29 +36,35 @@ router.get("/", requireToken, async (req, res, next) => {
 });
 
 // add item to cart:
-// router.post(':/userId/add', async (req, res, next) => {
-//   try {
-//     const [currentOrder] = await Cart.findOrCreate({
-//       where: {
-//         order_status: 'in cart',
-//         userId: req.body.userId
-//       },
-//       include: {
-//         model: Book
-//       },
-//     const currentBook = await Book.findByPk(req.body.bookId),
-//     let updatedOrder = await Cart.findOne({
-//         where: {
-//           userId: req.body.userId,
-//           order_status: 'in cart'
-//         },
-//         include: {model: Book}
-//       })
-//         res.json(updatedOrder)
-//   }} catch (error) {
-//     next(error)
-//   }
-// })
+router.post('/', requireToken, async (req, res, next) => {
+  try {
+    const currBook = await Book.findByPk(req.body.id);
+    const currentOrder = await Cart.findOne({
+      where: {
+        order_status: 'in cart',
+        userId: req.user.id
+      }
+    }
+    // defaults:{
+    //   cartId: currentOrder.id
+    // }
+    )
+      console.log({currentOrder})
+      if(currentOrder){
+        await currBook.setCarts(currentOrder.id);
+        res.json(currentOrder)
+      } else {
+        const currentOrder = await Cart.Create({
+          userId: req.user.id
+        })
+        await currentOrder.save();
+        await currBook.setCarts(currentOrder.id);
+        res.json(currentOrder)
+      }
+  } catch (error) {
+    next(error)
+  }
+})
 
 // // remove item from cart
 // router.put('/remove', async (req, res, next) => {
