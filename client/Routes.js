@@ -8,6 +8,7 @@ import SingleBook from "./components/SingleBook";
 import Cart from "./components/Cart";
 import Stock from "./components/Stock";
 import StockItem from "./components/StockItem";
+import Home from "./components/Home";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
 import Checkout from "./components/Checkout";
@@ -29,7 +30,7 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            {/* <Route path="/homepage" component={Home} /> */}
+            <Route path="/homepage" component={Home} />
             <Route path="/cart" component={Cart} />
             {/* <Route path="/cart" component={Cart} /> */}
             {/* <Route path="/cart/:username" component={UserCart} /> */}
@@ -43,7 +44,7 @@ class Routes extends Component {
           </Switch>
         ) : (
           <Switch>
-            {/* <Route path="/homepage" component={Home} /> */}
+            <Route path="/homepage" component={Home} />
             <Route exact path="/books/:bookId" component={SingleBook} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
