@@ -12,16 +12,25 @@ router.get("/", requireToken, async (req, res, next) => {
         userId: req.user.id,
         order_status: "in cart",
       },
-      include: { model: Book },
+      attributes: ["id"],
+      include: [
+        {
+          model: Book,
+          attributes: ["id", "title", "author", "coverimg", "price"],
+          through: { attributes: [] },
+          required: true,
+        },
+      ],
     });
+    console.log({ currentCart });
     if (currentCart) {
       res.json(currentCart);
     } else {
-      console.log('no cart - get shopping!')
+      console.log("no cart - get shopping!");
       throw new Error();
     }
   } catch (err) {
-    console.log('>>>>>>>You are not Authorized!')
+    console.log(">>>>>>>You are not Authorized!");
     next(err);
   }
 });
