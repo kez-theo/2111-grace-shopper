@@ -36,10 +36,20 @@ router.get('/:stockId', async(req, res, next) => {
 // })
 
 // //route to delete book
-router.delete('/:bookId', requireToken, isAdmin,  async(req, res, next) => {
+router.delete('/:bookId', requireToken, isAdmin, async(req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.bookId)
     await book.destroy();
+    res.json(book);
+  } catch (err) {
+    next(err);
+  }
+})
+
+router.post('/',   async(req, res, next) => {
+  try {
+    console.log("post route gets hit")
+    const book = await Book.create(req.body)
     res.json(book);
   } catch (err) {
     next(err);

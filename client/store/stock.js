@@ -5,6 +5,7 @@ const TOKEN = "token";
 //ACTIONS
 const GET_STOCK = "GET_STOCK";
 const DELETE_STOCK = "DELETE_STOCK";
+const ADD_STOCK = "ADD_STOCK"
 
 //ACTION CREATORS
 export const getStock = (stock) => ({
@@ -17,6 +18,14 @@ export const deleteStock = (stockItem) => ({
   stockItem,
 });
 
+
+export const setSingleItem = (singleBook) =>({
+  type: ADD_STOCK,
+  singleBook
+})
+
+
+// export const addStock = stock => ({})
 
 //THUNK CREATORS
 
@@ -34,14 +43,39 @@ export const fetchStock = () => {
   };
 };
 
+export const setStock = (stock, history) => {
+  return async (dispatch) => {
+    try{
+      const token = window.localStorage.getItem(TOKEN)
+      if(token){      
+        const { data } = await axios.post(`/api/stock`, stock,  {
+          headers: {
+            authorization: token,
+          }})
+        dispatch(setSingleItem(data));
+        history.push('/stock')
+      }
+    }catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export const removeStock = (id) => {
   return async (dispatch) => {
     try {
       //console.log('delete thunk works')
-      const { data: stockItem } = await axios.delete(`/api/stock/${id}`);
-      dispatch(deleteStock(stockItem));
-      const { data: stock } = await axios.get('/api/books')
-      dispatch(getStock(stock))
+      const token = window.localStorage.getItem(TOKEN)
+      if(token){
+          const { data: stockItem } = await axios.delete(`/api/stock/${id}`,{
+            headers: {
+              authorization: token,
+            },
+          });
+          dispatch(deleteStock(stockItem));
+          // const { data: stock } = await axios.get('/api/books')
+          // dispatch(getStock(stock))
+      }      
     } catch (err) {
       console.log(err);
     }
@@ -55,6 +89,8 @@ export default function stockReducer(state = initialState, action) {
   switch (action.type) {
     case GET_STOCK:
       return action.stock;
+        case ADD_STOCK:
+      return [...state, action.singleBook]
     case DELETE_STOCK:
       return state.filter((stockItem) => stockItem.id !== action.stockItem.id);
     default:

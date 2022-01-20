@@ -21,7 +21,7 @@ const Book = db.define("book", {
   },
   isbn: {
     type: Sequelize.STRING,
-    allowNull: false,
+    //allowNull: false,
     validate: {
       len: [10, 13],
     },
