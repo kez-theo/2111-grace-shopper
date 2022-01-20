@@ -16,15 +16,24 @@ export class FormStockItem extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // componentDidMount() {
-  //   console.log(this.props)
-  //   // this.props.fetchStockItem(this.props.match.params.stockId);
-  //   console.log(this.props.stockItem)
-  //   // this.setState({
-  //   //   title: this.props.stockItem.title || '',
-  //   //   price: this.props.stockItem.price || ''
-  //   // });
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.stockItem.stockId !== this.props.stockItem.stockId) {
+  //     this.setState({
+  //       title: this.props.stockItem.title || '',
+  //       price: this.props.stockItem.price || ''
+  //     });
+  //   }
   // }
+
+  componentDidMount() {
+    console.log(this.props)
+    this.props.fetchStockItem(this.props.match.params.stockId);
+    console.log(this.props.stockItem)
+    // this.setState({
+    //   title: this.props.stockItem.title || '',
+    //   price: this.props.stockItem.price || ''
+    // });
+  }
 
   // componentWillUnmount() {
   //   this.props.clearStockItem();
