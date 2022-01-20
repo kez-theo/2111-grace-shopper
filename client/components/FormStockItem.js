@@ -8,16 +8,6 @@ class FormStockItem extends React.Component {
     super(props);
     this.state = {
       title: '',
-      series: '',
-      author: '',
-      description: '',
-      language: '',
-      isbn: '',
-      genres: '',
-      bookformat: '',
-      pages: '',
-      publisher: '',
-      coverimg: '',
       price: ''
     }
     this.handleChange = this.handleChange.bind(this);
@@ -25,8 +15,9 @@ class FormStockItem extends React.Component {
   }
 
   componentDidMount() {
-    const id = this.props.match.params.stockId;
-    this.props.fetchStockItem(id);
+    console.log(this.props)
+    this.props.fetchStockItem(this.props.match.params.stockId);
+    console.log(this.props.stockItem)
   }
 
   componentWillUnmount() {
@@ -34,19 +25,9 @@ class FormStockItem extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.stockId !== this.props.stockId) {
+    if (prevProps.stockItem.id !== this.props.stockItem.id) {
       this.setState({
         title: this.props.stockItem.title || '',
-        series: this.props.stockItem.series || '',
-        author: this.props.stockItem.author || '',
-        description: this.props.stockItem.description || '',
-        language: this.props.stockItem.language || '',
-        isbn: this.props.stockItem.isbn || '',
-        genres: this.props.stockItem.genres || '',
-        bookformat: this.props.stockItem.bookformat || '',
-        pages: this.props.stockItem.pages || '',
-        publisher: this.props.stockItem.publisher || '',
-        coverimg: this.props.stockItem.coverimg || '',
         price: this.props.stockItem.price || ''
       });
     }
@@ -64,48 +45,19 @@ class FormStockItem extends React.Component {
   }
     
   render() {
-    const { title, series, author, description, language, isbn, genres,
-      bookformat, pages, publisher, coverimg, price } = this.state
+    const { title, author, description, price } = this.state
+    
+    const { handleSubmit, handleChange } = this;
 
     return (
       <div>
         <h2>Edit a Book</h2>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="title">Edit Book Title</label>
-          <input name="title" onChange={this.handleChange} value={title} />
-
-          <label htmlFor="series">Edit Series</label>
-          <input name="series" onChange={this.handleChange} value={series} />
-
-          <label htmlFor="author">Edit Author</label>
-          <input name="author" onChange={this.handleChange} value={author} />
-
-          <label htmlFor="description">Edit Description</label>
-          <input name="description" onChange={this.handleChange} value={description} />
-
-          <label htmlFor="language">Edit Langauge</label>
-          <input name="language" onChange={this.handleChange} value={language} />
-
-          <label htmlFor="isbn">Edit Isbn</label>
-          <input name="isbn" onChange={this.handleChange} value={isbn} />
-
-          <label htmlFor="genres">Edit Genres</label>
-          <input name="genres" onChange={this.handleChange} value={genres} />
-
-          <label htmlFor="bookformat">Edit Book Format</label>
-          <input name="bookformat" onChange={this.handleChange} value={bookformat} />
-
-          <label htmlFor="pages">Edit Page Numbers</label>
-          <input name="pages" onChange={this.handleChange} value={pages} />
-
-          <label htmlFor="publisher">Edit Publisher</label>
-          <input name="publisher" onChange={this.handleChange} value={publisher} />
-
-          <label htmlFor="coverimg">Edit Cover Image</label>
-          <input name="coverimg" onChange={this.handleChange} value={coverimg} />
+          <input name="title" onChange={handleChange} value={title} />
 
           <label htmlFor="price">Edit Price</label>
-          <input name="price" onChange={this.handleChange} value={price} />
+          <input name="price" onChange={handleChange} value={price} />
 
           <button type='submit'>Update Book</button>
         </form>

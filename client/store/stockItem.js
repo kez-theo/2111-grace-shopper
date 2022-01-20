@@ -40,10 +40,19 @@ export const fetchStockItem = (stockId) => {
 export const updateStock = (stockItem, history) => {
   return async (dispatch) => {
     try {
-      const { data: updatedItem } = await axios.put(`/api/stock/${stockItem.id}`, stockItem);
-      dispatch(editStock(updatedItem));
+      const token = window.localStorage.getItem(TOKEN)
+      if (token) {
+        const { data: updatedItem } = await axios.put(`/api/stock/${stockItem.id}`, stockItem, {
+            headers: {
+              authorization: token,
+            },
+          });
+        console.log(updatedItem)
+        dispatch(editStock(updatedItem));
+      }
       history.push(`/stock`)
     } catch (err) {
+      console.log(">>>>>>>>>>thunk not working!!")
       console.log(err);
     }
   };

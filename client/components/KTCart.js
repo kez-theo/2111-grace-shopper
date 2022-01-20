@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { loadCart } from "../store/cart";
 
-export class Cart extends React.Component {
+class Cart extends React.Component {
   componentDidMount() {
     this.props.loadCart();
   }

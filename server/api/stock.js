@@ -26,9 +26,10 @@ router.get('/:stockId', requireToken, isAdmin, async(req, res, next) => {
 })
 
 //route to edit/update book
-router.put('/:stockId', requireToken, isAdmin, async(req, res, next) => {
+router.put('/:stockId', async(req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.stockId)
+    console.log(book)
     const updatedBook = await book.update(req.body)
     res.json(updatedBook);
   } catch (err) {
