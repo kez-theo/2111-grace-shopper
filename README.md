@@ -7,8 +7,6 @@ Now that you've got the code, follow these steps to get acclimated:
 - Update project name and description in `package.json`
 - `npm install`
 - Create two postgres databases (`book_shopper` and book_shopper_test
--
-
 - By default, running `npm test` will use your test database, while
   regular development uses development database
 
