@@ -27,7 +27,7 @@ const Cart = () => {
             <h3>{book.title}</h3>
             <h3>{book.author}</h3>
             <h3>{book.price}</h3>
-            <button onClick={ () => this.props.deleteItem(this.handleDelete)}>Remove from Cart</button>
+            <button>Remove from Cart</button>
           </div>
         ))}
         <div>

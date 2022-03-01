@@ -10,7 +10,7 @@ import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn, isUserAdmin }) => (
   <div>
-    <nav>
+    <nav className="main">
         <Link className="logo" to="/homepage">
           <img src = 'logo.png' height = '100px' width = '300px'/>
         </Link>

@@ -6,7 +6,7 @@ const app = express();
 module.exports = app;
 
 // require shh
-if (process.env.NODE_ENV !== "production") require("../.shh");
+if (process.env.NODE_ENV !== "production") require("../.ssh");
 const JWT = process.env.JWT;
 
 // logging middleware
