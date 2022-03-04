@@ -8,6 +8,7 @@ import SingleBook from "./components/SingleBook";
 import Cart from "./components/Cart";
 import Stock from "./components/Stock";
 import StockItem from "./components/StockItem";
+import FormStockItem from "./components/FormStockItem";
 import Home from "./components/Home";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
@@ -38,7 +39,8 @@ class Routes extends Component {
             <Route exact path="/books/:bookId" component={SingleBook} />
             <Route path="/edit" component={UserDataForm} />
             <Route exact path="/stock" component={Stock} />
-            <Route path="/stock/:stockId" component={StockItem} />
+            <Route exact path="/stock/:stockId" component={StockItem} />
+            <Route path="/stock/edit/:stockId" component={FormStockItem} />
             <Route path="/users" component={AllUsers} />
             <Route path="/checkout" component={Checkout} />
             <Route path = "/add-book" component = {AddBook} />

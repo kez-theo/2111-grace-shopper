@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchStock, updateStock, removeStock } from "../store/stock";
+import { fetchStock, removeStock } from "../store/stock";
 
 const Stock = () => {
   const history = useHistory();
@@ -28,7 +28,7 @@ const Stock = () => {
             <th>Price</th>
             <th>Action</th>
           </tr>
-          {books.slice(0, 21).map((book) => {
+          {books.map((book) => {
             return (
               <tr key={book.id}>
                 <td>{book.title}</td>
