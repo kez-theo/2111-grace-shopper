@@ -49,7 +49,6 @@ router.delete('/:bookId', requireToken, isAdmin, async(req, res, next) => {
 
 router.post('/', requireToken, isAdmin, async(req, res, next) => {
   try {
-    console.log("post route gets hit")
     const book = await Book.create(req.body)
     res.json(book);
   } catch (err) {
