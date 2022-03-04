@@ -5,13 +5,11 @@ import { Login, Signup } from "./components/AuthForm";
 //import UserDataForm from "./components/AddressInfo";
 import UserDataForm from "./components/UserDataForm";
 import SingleBook from "./components/SingleBook";
-// import { LocalCart } from "./components/LocalCart";
-// import { Cart } from "./components/Cart";
-import KTCart from "./components/KTCart";
-import Home from "./components/Home";
+import Cart from "./components/Cart";
 import Stock from "./components/Stock";
 import StockItem from "./components/StockItem";
 import FormStockItem from "./components/FormStockItem";
+import Home from "./components/Home";
 import { me } from "./store";
 import AllUsers from "./components/AllUsers";
 import Checkout from "./components/Checkout";
@@ -35,7 +33,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/homepage" component={Home} />
-            <Route path="/cart" component={KTCart} />
+            <Route path="/cart" component={Cart} />
             {/* <Route path="/cart" component={Cart} /> */}
             {/* <Route path="/cart/:username" component={UserCart} /> */}
             <Route exact path="/books/:bookId" component={SingleBook} />
@@ -56,6 +54,8 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/checkout" component={Checkout} />
             {/* <Route path="/cart" component={LocalCart} /> */}
+            <Route path="/cart" component={Cart} />
+
           </Switch>
         )}
       </div>
